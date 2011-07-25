@@ -1,0 +1,4 @@
+export ZSH=$HOME/.zsh
+source $ZSH/zshrc
+
+source $HOME/.zshenv
