@@ -1,0 +1,18 @@
+[submodule "subs/url-httplink"]
+	path = subs/url-httplink
+	url = git@github.com:Valodim/zsh-_url-httplink.git
+[submodule "subs/lunar-completion"]
+	path = subs/lunar-completion
+	url = git@github.com:Valodim/lunar-zsh-completion.git
+[submodule "subs/zsh-syntax-highlighting"]
+	path = subs/zsh-syntax-highlighting
+	url = git://github.com/nicoulaj/zsh-syntax-highlighting.git
+[submodule "subs/LS_COLORS"]
+	path = subs/LS_COLORS
+	url = git://github.com/trapd00r/LS_COLORS.git
+[submodule "subs/zsh-history-substring-search"]
+	path = subs/zsh-history-substring-search
+	url = https://github.com/zsh-users/zsh-history-substring-search.git
+[submodule "subs/zsh-complete-recent-args"]
+	path = subs/zsh-complete-recent-args
+	url = https://github.com/nakamuray/zsh-complete-recent-args.git
