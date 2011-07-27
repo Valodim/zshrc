@@ -2,6 +2,7 @@
 # setup stuff
 ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=$ZSH/subs/zsh-syntax-highlighting/highlighters
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+ZSH_HIGHLIGHT_MAXLENGTH=300
 
 typeset -A ZSH_HIGHLIGHT_STYLES
 : ${ZSH_HIGHLIGHT_STYLES[default]:=none}
