@@ -1,7 +1,7 @@
 # Initializes my zsh - originally based on Oh-My-Zsh
 
 # add a function path
-fpath=($ZSH/functions $fpath)
+fpath=($ZSH/functions $ZSH/subs/zsh-completions $fpath)
 
 # Load all libraries first
 for config_file in $ZSH/lib/*.zsh(N); source $config_file
