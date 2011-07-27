@@ -2,7 +2,7 @@
 
 # completion stuff
 zstyle ':completion::complete:*' use-cache on
-zstyle ':completion::complete:*' cache-path $ZSH/cache/$HOST
+zstyle ':completion::complete:*' cache-path $ZSH/cache/
 
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
