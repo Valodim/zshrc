@@ -6,7 +6,7 @@
 	url = git@github.com:Valodim/lunar-zsh-completion.git
 [submodule "subs/zsh-syntax-highlighting"]
 	path = subs/zsh-syntax-highlighting
-	url = git://github.com/nicoulaj/zsh-syntax-highlighting.git
+	url = git://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule "subs/LS_COLORS"]
 	path = subs/LS_COLORS
 	url = git://github.com/trapd00r/LS_COLORS.git
