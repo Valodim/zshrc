@@ -3,6 +3,11 @@
 # add a function path
 fpath=($ZSH/functions $ZSH/subs/zsh-completions $fpath)
 
+if [[ ! -a $ZSH/subs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+    echo 'Missing subs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh, and probably others.'
+    echo 'Did you git submodule init && git submodule update ?'
+fi
+
 # Load all libraries first
 for config_file in $ZSH/lib/*.zsh(N); source $config_file
 
