@@ -9,6 +9,9 @@ zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character 
 zstyle ':completion:*' menu select=1 _complete _ignored _approximate
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 
+# This is needed to workaround a bug in _setup:12, causing almost 2 seconds delay for bigger LS_COLORS
+zstyle ':completion:*:*:-command-:*' list-colors ''
+
 # Completion Styles
 
 # list of completers to use
