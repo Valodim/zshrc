@@ -28,6 +28,17 @@ inline-ls() {
 }
 zle -N inline-ls
 
+function irssi-down() {
+    if [[ -n "$BUFFER" && ${(%):-'%!'} == $HISTNO ]]; then
+        print -s "$BUFFER"
+        zle end-of-history
+        BUFFER=''
+    else
+        zle down-line-or-search
+    fi
+}
+zle -N irssi-down
+
 autoload -U   edit-command-line
 zle -N        edit-command-line
 
@@ -82,7 +93,7 @@ else
 
     # history completion up/down keys
     bindkey "${key[Up]}" up-line-or-search
-    bindkey "${key[Down]}" down-line-or-search
+    bindkey "${key[Down]}" irssi-down
 
     bindkey "${key[Backspace]}" backward-delete-char
     bindkey "${key[Delete]}" delete-char
