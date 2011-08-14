@@ -11,7 +11,7 @@ autoload -Uz vcs_info
 # %R - repository path
 # %S - path in the repository
 FMT_BRANCH="%{${reset_color}%}%b%u%c" # e.g. master¹²
-FMT_ACTION="(%{${fg[cyan]}%}%a)"   # e.g. (rebase-i)
+FMT_ACTION="(%{${fg[cyan]}%}%a%{${reset_color}%}"   # e.g. (rebase-i)
 FMT_PATH="%{${fg[green]}%}%R/%{${fg[yellow]}%}%S"              # e.g. ~/repo/subdir
 
 # check-for-changes can be really slow.
