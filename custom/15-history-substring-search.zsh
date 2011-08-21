@@ -1,1 +1,1 @@
-../subs/zsh-history-substring-search/history-substring-search.zsh
+../subs/zsh-history-substring-search/zsh-history-substring-search.zsh
