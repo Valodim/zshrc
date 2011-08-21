@@ -39,6 +39,15 @@ function irssi-down() {
 }
 zle -N irssi-down
 
+# automatically escape parsed urls
+autoload -U url-quote-magic
+if [[ $+functions[_zsh_highlight] == 1 ]]; then
+    function _url-quote-magic() { url-quote-magic; _zsh_highlight }
+    zle -N self-insert _url-quote-magic
+else
+    zle -N self-insert url-quote-magic
+fi
+
 autoload -U   edit-command-line
 zle -N        edit-command-line
 
