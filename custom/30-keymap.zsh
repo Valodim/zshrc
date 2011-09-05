@@ -28,6 +28,18 @@ inline-ls() {
 }
 zle -N inline-ls
 
+function vi-goto-word() {
+    # get buffer into a word-split array
+    local -a a
+    a=( ${(z)BUFFER} )
+
+    # did we get a numeric argument? otherwise go to the first argument (right after the command)
+    local num=${NUMERIC:-1}
+    # set cursor to length of the first two arrays
+    CURSOR=$(( ${(c)#${a[1,$num]}} +1 ))
+}
+zle -N vi-goto-word
+
 function irssi-down() {
     if [[ -n "$BUFFER" && ${(%):-'%!'} == $HISTNO ]]; then
         print -s "$BUFFER"
@@ -74,6 +86,8 @@ bindkey '^P' push-line
 bindkey '^R' insert-root-prefix
 bindkey '^T' undo
 bindkey '^Z' job-foreground
+
+bindkey -M vicmd g vi-goto-word
 
 # ctrl-left & ctrl-right
 bindkey '^[Od' backward-word
