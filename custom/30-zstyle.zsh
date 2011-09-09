@@ -35,8 +35,8 @@ zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:options' auto-description '%d'
 
-# match uppercase from lowercase
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+# match uppercase from lowercase, and left-side substrings
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' '+l:|=*'
 
 # offer indexes before parameters in subscripts
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
