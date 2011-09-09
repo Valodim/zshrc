@@ -22,3 +22,6 @@
 [submodule "subs/autojump"]
 	path = subs/autojump
 	url = git://github.com/joelthelion/autojump.git
+[submodule "subs/gistpaste"]
+	path = subs/gistpaste
+	url = https://github.com/dblevins/gistpaste.git
