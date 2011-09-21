@@ -60,6 +60,28 @@ else
     zle -N self-insert url-quote-magic
 fi
 
+function space-magic() {
+    if [[ ! $BUFFER =~ " " ]]; then
+        local guess
+        # any command with matching start?
+        guess=${${commands##/*/}[(r)${BUFFER}*]}
+        # if we found something, and it's the only matchin element
+        if [[ -n $guess && $guess == ${${commands##/*/}[(R)${BUFFER}*]} ]]; then
+            # put that into the buffer :)
+            BUFFER=$guess' '
+            CURSOR=$#BUFFER
+        else
+            url-quote-magic
+        fi
+    else
+        url-quote-magic
+    fi
+    if [[ $+functions[_zsh_highlight] == 1 ]]; then
+        _zsh_highlight
+    fi
+}
+zle -N space-magic
+
 autoload -U   edit-command-line
 zle -N        edit-command-line
 
@@ -86,6 +108,8 @@ bindkey '^P' push-line
 bindkey '^R' insert-root-prefix
 bindkey '^T' undo
 bindkey '^Z' job-foreground
+
+bindkey -M viins ' ' space-magic
 
 bindkey -M vicmd g vi-goto-word
 
