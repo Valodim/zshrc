@@ -22,6 +22,7 @@ zstyle ':vcs_info:*' enable git svn darcs bzr hg
 zstyle ':vcs_info:*:prompt:*' check-for-changes true
 zstyle ':vcs_info:*:prompt:*' unstagedstr '¹'  # display ¹ if there are unstaged changes
 zstyle ':vcs_info:*:prompt:*' stagedstr '²'    # display ² if there are staged changes
+zstyle ':vcs_info:*:prompt:*' max-exports 3
 zstyle ':vcs_info:*:prompt:*' formats         "${FMT_PATH}" "${FMT_BRANCH} "              "%s »"
 zstyle ':vcs_info:*:prompt:*' actionformats   "${FMT_PATH}" "${FMT_BRANCH}${FMT_ACTION} " "%s »"
 # special hg stuff
