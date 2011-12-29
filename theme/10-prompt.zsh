@@ -3,6 +3,8 @@
 autoload -U add-zsh-hook
 autoload -Uz vcs_info
 
+setopt promptsubst
+
 # set formats
 # %b - branchname
 # %u - unstagedstr (see below)

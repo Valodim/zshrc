@@ -9,6 +9,8 @@ unsetopt bgnice autoparamslash beep sharehistory hist_verify
 
 setopt listpacked listtypes
 
+autoload colors; colors
+
 zle_highlight=(region:underline
                special:bold
               )
