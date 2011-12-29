@@ -89,11 +89,17 @@ bindkey '^Z' job-foreground
 
 bindkey -M vicmd g vi-goto-word
 
+autoload -U select-word-style backward-word-match forward-word-match
+select-word-style shell
+
+zle -N backward-word-match
+zle -N forward-word-match
+
 # ctrl-left & ctrl-right
-bindkey '^[Od' backward-word
-bindkey '^[OD' backward-word
-bindkey '^[Oc' forward-word
-bindkey '^[OC' forward-word
+bindkey '^[Od' backward-word-match
+bindkey '^[OD' backward-word-match
+bindkey '^[Oc' forward-word-match
+bindkey '^[OC' forward-word-match
 
 # ctrl-up and ctrl-down for substring search
 bindkey '^[Oa' history-substring-search-up
