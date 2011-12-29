@@ -1,0 +1,39 @@
+My zsh configs. If you don't know what's what, you probably shouldn't use it
+but get your own going. Feel free though :)
+
+Interesting keybindings:
+
+    editing:
+        ^F edit command line in $EDITOR
+        ^H run help for current $0
+        ^P push line on stack
+        ^O insert line from stack
+        ^T undo
+        ^R prepend "sudo "
+        ctrl-left/right will move along argument boundaries
+        repeated ... will be turned into ../.. (mikachu's rationalise-dots)
+
+    history:
+        down on empty line will clear the line but add it to history, irssi-style 
+        up will search history on first word match
+        ctrl-up/down will substring-search history
+
+    functional shortcuts:
+        ^L display ls
+        ^X^L clear screen (instead of ^L)
+        ^Z do "fg %%" (allows neat toggling)
+
+    in menu-complete:
+        page-up will accept and complete again (go into directory)
+        page-down will undo (basically, go up directory)
+        menu will accept selection but stay in menu-complete
+
+Tidbits:
+ - on urxvt, the cursor will become red when in vi normal mode
+ - the hostname color in the prompt is generated from a hash
+
+Caveats:
+ - doesn't work well without 256 colors
+ - doesn't work well for people who are not me
+ - there are a couple remainders from omz (particularly in /lib), too lazy to
+   get rid of those
