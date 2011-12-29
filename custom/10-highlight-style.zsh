@@ -25,6 +25,6 @@ typeset -A ZSH_HIGHLIGHT_STYLES
 : ${ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]:=fg=cyan}
 : ${ZSH_HIGHLIGHT_STYLES[assign]:=none}
 
-: ${ZSH_HIGHLIGHT_STYLES[precommand]:=fg=118,underline}
+: ${ZSH_HIGHLIGHT_STYLES[precommand]:=fg=227}
 : ${ZSH_HIGHLIGHT_STYLES[commandseparator]:=none}
 
