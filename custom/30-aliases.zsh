@@ -15,3 +15,5 @@ alias -g ....='../../..'
 alias -g .....='../../../..'
 
 alias bell=print '\a'
+
+alias zsmv='zmv -p sudo -o mv '
