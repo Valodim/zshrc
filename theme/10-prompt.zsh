@@ -14,6 +14,12 @@ FMT_BRANCH="%{${reset_color}%}%b%u%c" # e.g. master¹²
 FMT_ACTION="(%{${fg[cyan]}%}%a%{${reset_color}%}"   # e.g. (rebase-i)
 FMT_PATH="%{${fg[green]}%}%R/%{${fg[yellow]}%}%S"              # e.g. ~/repo/subdir
 
+# bunch of custom hostname colors. for most, t2cc works just fine. :)
+typeset -A hostcolors
+hostcolors=(
+    SteelHooves $FG[245]
+    )
+
 # check-for-changes can be really slow.
 # you should disable it, if you work with large repositories   
 zstyle ':vcs_info:*:prompt:*' nvcsformats   "%{${fg[green]}%}%3~" "" "»"
@@ -62,11 +68,10 @@ function lprompt {
     fi
 
     # hide username if it's my regular one
-    local HOSTNAME=`hostname`
-    if [[ $HOSTNAME == "valbook" ]]; then
-      local host_color="${reset_color}"
+    if [[ -n $hostcolors[$HOST] ]]; then
+      local host_color="${hostcolors[$HOST]}"
     else
-      local host_color=$FG[$(t2cc $HOSTNAME)] #$'\e'"[`$ZSH/t2cc $HOSTNAME`m"
+      local host_color=$FG[$(t2cc $HOST)] #$'\e'"[`$ZSH/t2cc $HOSTNAME`m"
     fi
     local host="%{${host_color}%}%M%{${reset_color}%}"
 
