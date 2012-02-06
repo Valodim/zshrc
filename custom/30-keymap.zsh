@@ -51,6 +51,20 @@ function irssi-down() {
 }
 zle -N irssi-down
 
+# expand-or-complete, but sets buffer to "cd" if it's empty
+function expand-or-complete-or-cd() {
+    if [[ $#BUFFER == 0 ]]; then
+        BUFFER="cd "
+        CURSOR=3
+        # don't want that after all
+        # zle menu-expand-or-complete
+        zle menu-expand-or-complete
+    else
+        zle expand-or-complete
+    fi
+}
+zle -N expand-or-complete-or-cd
+
 # automatically escape parsed urls
 autoload -U url-quote-magic
 if [[ $+functions[_zsh_highlight] == 1 ]]; then
@@ -86,6 +100,9 @@ bindkey '^P' push-line
 bindkey '^R' insert-root-prefix
 bindkey '^T' undo
 bindkey '^Z' job-foreground
+
+# wrap tab completion
+bindkey '^I' expand-or-complete-or-cd
 
 bindkey -M vicmd g vi-goto-word
 
