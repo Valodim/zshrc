@@ -4,10 +4,15 @@
 # trailing spaces in the argument name will also be stripped
 function mksub () {
     setopt localoptions extendedglob
+    # strip whitespace from the dir
     d=${1% #}
-    mkdir $d
+    # create the sub dir, if it doesn't exist
+    [[ ! -e $d ]] && mkdir $d
+    # glob all extensions, but not $d itself
     a=( $~1*~$d(N) )
+    # move all of those one level down
     for i in $a; do
-        mv $i $d/${i#$1}
+        # strip the sub dir name in the process
+        mv $i $d/${${i#$1}# #}
     done
 }

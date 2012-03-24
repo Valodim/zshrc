@@ -8,6 +8,7 @@ alias -g S='| sort'
 alias -g U='| uniq'
 alias -g H='| head'
 alias -g T='| tail'
+alias -g C='| column -t'
 
 alias -g ND='$(ls -d *(/om[1]))' # newest directory
 alias -g NF='$(ls *(.om[1]))'    # newest file
@@ -33,3 +34,5 @@ alias l='ls -CF'
 # rsync
 alias rscp="nocorrect rsync -aP --no-whole-file --inplace"
 alias rsmv="nocorrect rscp --remove-source-files"
+
+alias qum='quvi -e-r -e-v "URL" --exec "echo %t" --exec "mplayer %u"'
