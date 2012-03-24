@@ -1,4 +1,26 @@
-# vim: set syntax=zsh:
+unsetopt menu_complete
+setopt auto_menu complete_in_word always_to_end
+
+autoload -U compinit
+compinit -i
+
+zmodload -i zsh/complist
+
+## case-insensitive (all),partial-word and then substring completion
+if [ "x$CASE_SENSITIVE" = "xtrue" ]; then
+  zstyle ':completion:*' matcher-list 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+  unset CASE_SENSITIVE
+else
+  zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+fi
+
+zstyle ':completion:*' list-colors ''
+
+# Load known hosts file for auto-completion with ssh and scp commands
+if [ -f ~/.ssh/known_hosts ]; then
+  zstyle ':completion:*' hosts $( sed 's/[, ].*$//' $HOME/.ssh/known_hosts )
+  zstyle ':completion:*:*:(ssh|scp):*:*' hosts `sed 's/^\([^ ,]*\).*$/\1/' ~/.ssh/known_hosts`
+fi
 
 # completion stuff
 zstyle ':completion::complete:*' use-cache on
@@ -68,8 +90,6 @@ zstyle ':completion:*:*:evince(syn|):*' file-patterns \
 
 zstyle ':completion:*:*:vi(m|):*:*files' ignored-patterns \
   '*?.(aux|dvi|ps|pdf|bbl|toc|lot|lof|o|cm|class?)'
-
-zstyle ':vcs_info:*:prompt:/usr/src/linux-custom' check-for-changes false
 
 zle -C complete-history complete-word _generic
 zstyle ':completion:complete-history:*' completer _history
