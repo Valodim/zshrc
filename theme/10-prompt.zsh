@@ -19,6 +19,7 @@ FMT_PATH="%{${fg[green]}%}%R/%{${fg[yellow]}%}%S"              # e.g. ~/repo/sub
 # bunch of custom hostname colors. for most, t2cc works just fine. :)
 typeset -A hostcolors
 hostcolors=(
+    fluttershy $FG[229]
     SteelHooves $FG[245]
     )
 
@@ -60,6 +61,15 @@ function valodim_precmd {
 '
   fi
 
+  if [[ -w $PWD ]]; then
+      pwdstat="%{${fg_bold[blue]}%}"
+  elif [[ -r $PWD ]]; then
+      pwdstat="%{${fg_bold[yellow]}%}"
+  else
+      pwdstat="%{${fg_bold[red]}%}"
+  fi
+  [[ -O $PWD ]] && pwdstat+=":" || pwdstat+="."
+
   vcs_info 'prompt'
 }
 
@@ -78,7 +88,7 @@ function lprompt {
     local host="%{${host_color}%}%M%{${reset_color}%}"
 
     local shlvl="%(4L.%L .)"
-    local exstat="%(?.%{${fg_bold[blue]}%}::.%{${reset_color}${fg_bold[red]}%}:%?)"
+    local exstat="%(?.%{${fg_bold[blue]}%}:.%{${reset_color}${fg_bold[red]}%}%?)"
 
     local cwd='${${vcs_info_msg_0_%%.}/$HOME/~}'
     local git1='$vcs_info_msg_1_'
@@ -86,9 +96,10 @@ function lprompt {
 
     local failindicator='%(?,,%{$fg[red]%}FAIL%{$reset_color%}
 )'
+    pwdstat="%{${fg_bold[blue]}%}:"
 
     # disabled: \${zftpdata}
-    PROMPT="${failindicator}[${user}${host}] ${shlvl}${exstat} ${cwd} ${git1}%{$reset_color%}${git2} "
+    PROMPT="${failindicator}[${user}${host}] ${shlvl}\${pwdstat}${exstat} ${cwd} ${git1}%{$reset_color%}${git2} "
 }
 
 function rprompt {
