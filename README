@@ -39,6 +39,24 @@ Interesting keybindings:
         page-down will undo (basically, go up directory)
         menu will accept selection but stay in menu-complete
 
+My Prompt:
+
+  [valodim@SteelHooves] ::1 ~/.zsh/custom master¹² ±
+       ^       ^        ^^^    ^     ^      ^   ^^ ^
+       a       b        cde    f     g      h   ij k
+
+    a username, only displayed if it's not "valodim" (you probably wanna change that)
+    b hostname, colored using its hash
+    c pwd permissions indicator, : if owned by $uid else ., yellow if only readable, red if not even readable
+    d localhist indicator, : if enabled, . if disabled, colored differently if there is a localhist
+    e fail indicator, displays exit status if it's != 0
+    f path, nothing special about it
+    g path within repository, differently colored
+    h vcs branch name
+    i unstaged changes indicator
+    j staged changes indicator
+    k repository type indicator. ± for git, ☿ for hg, $name for others (happens rarely for me)
+
 Tidbits:
  - on urxvt, the cursor will become red when in vi normal mode
  - the hostname color in the prompt is generated from a hash
