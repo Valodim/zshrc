@@ -70,6 +70,11 @@ function valodim_precmd {
   fi
   [[ -O $PWD ]] && pwdstat+=":" || pwdstat+="."
 
+  # add info about localhist status
+  # note this looks default if no localhist specific stuff happens at all
+  [[ -z $localhist ]] && pwdstat+="%F{blue}" || pwdstat+="%F{cyan}"
+  [[ -z $localhist_disable ]] && pwdstat+=":" || pwdstat+="."
+
   vcs_info 'prompt'
 }
 
@@ -88,7 +93,7 @@ function lprompt {
     local host="%{${host_color}%}%M%{${reset_color}%}"
 
     local shlvl="%(4L.%L .)"
-    local exstat="%(?.%{${fg_bold[blue]}%}:.%{${reset_color}${fg_bold[red]}%}%?)"
+    local exstat="%(?..%B%F{red}%?)"
 
     local cwd='${${vcs_info_msg_0_%%.}/$HOME/~}'
     local git1='$vcs_info_msg_1_'
