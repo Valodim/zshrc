@@ -41,9 +41,9 @@ Interesting keybindings:
 
 My Prompt:
 
-  [valodim@SteelHooves] ::1 ~/.zsh/custom master¹² ±
-       ^       ^        ^^^    ^     ^      ^   ^^ ^
-       a       b        cde    f     g      h   ij k
+      [valodim@SteelHooves] ::1 ~/.zsh/custom master¹² 1 ±
+           ^       ^        ^^^    ^     ^      ^   ^^ ^ ^
+           a       b        cde    f     g      h   ij k l
 
     a username, only displayed if it's not "valodim" (you probably wanna change that)
     b hostname, colored using its hash
@@ -55,7 +55,14 @@ My Prompt:
     h vcs branch name
     i unstaged changes indicator
     j staged changes indicator
-    k repository type indicator. ± for git, ☿ for hg, $name for others (happens rarely for me)
+    k number of stashed commits, if > 0
+    l repository type indicator. ± for git, ☿ for hg, $name for others, » outside of repositories
+
+  So a clean prompt [[ $PWD == $HOME ]] looks like
+
+      [SteelHooves] :: ~ »
+
+  beautiful, isn't it? :)
 
 Tidbits:
  - on urxvt, the cursor will become red when in vi normal mode
@@ -64,5 +71,6 @@ Tidbits:
 Caveats:
  - doesn't work well without 256 colors
  - doesn't work well for people who are not me
+ - probably requires a newish zsh
  - there are a couple remainders from omz (particularly in /lib), too lazy to
    get rid of those
