@@ -17,6 +17,7 @@ zle -N vi-cmd-mode-samepos
 job-foreground() {
   if [[ $(jobs | wc -l) > 0 ]]; then
       fg
+      zle .reset-prompt
   fi
 }
 zle -N job-foreground
