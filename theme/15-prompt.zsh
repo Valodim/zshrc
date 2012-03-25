@@ -14,24 +14,6 @@ hostcolors=(
 
 add-zsh-hook precmd valodim_precmd
 function valodim_precmd {
-  zftpdata=''
-  if false && [[ "$ZFTP_HOST" != "" ]]; then
-    local zftp_user=""
-    if [[ "$ZFTP_USER" != "valodim" ]]; then
-      zftp_user=$ZFTP_USER"%{${reset_color}%}@"
-    fi
-    local zftp_host_color=""
-    if [[ "$ZFTP_HOST" != "$ZFTP_IP" ]]; then
-      zftp_host_color=$'\e'"[$(t2cc $ZFTP_HOST)m"
-    fi
-    local zftp_host="%{${zftp_host_color}%}${ZFTP_HOST}%{$reset_color%}"
-    local zftp_stat=":${ZFTP_CODE}"
-    local zftp_cwd="%{$fg[green]%}${ZFTP_PWD}"
-
-    zftpdata=" $FG[243]↱ %{$reset_color%}[${zftp_user}${zftp_host}$FG[243]%{$reset_color%}] ${zftp_stat} ${zftp_cwd} %{${reset_color}%}»"'
-'
-  fi
-
   if [[ -w $PWD ]]; then
       pwdstat="%B%F{blue}"
   elif [[ -r $PWD ]]; then
@@ -72,9 +54,8 @@ function lprompt {
 
     local failindicator='%(?,,%{$fg[red]%}FAIL%{$reset_color%}
 )'
-    pwdstat="%{${fg_bold[blue]}%}:"
+    pwdstat="%B%F{blue}::"
 
-    # disabled: \${zftpdata}
     PROMPT="${failindicator}[${user}${host}] ${shlvl}\${pwdstat}${exstat} ${cwd} ${git1}%f%b${git2} "
 }
 
