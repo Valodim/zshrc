@@ -15,8 +15,19 @@ Interesting keybindings:
 
     history:
         down on empty line will clear the line but add it to history, irssi-style 
-        up will search history on first word match
+        up/down will search history on first word match
         ctrl-up/down will substring-search history
+
+    local history:
+        any directory that has a local history file (stored in
+        ZSH/hist/$PWD/__hist) will use that history instead of
+        the global one, unless this mechanism is disabled.
+
+        commands:
+          lhc creates a local history file for the current PWD
+          lh0 disables localhist
+          lh1 enables localhist
+          ^G toggles localhist
 
     functional shortcuts:
         ^L display ls

@@ -90,6 +90,7 @@ bindkey '^A' beginning-of-line
 bindkey '^B' accept-and-infer-next-history
 bindkey '^E' end-of-line
 bindkey '^F' edit-command-line
+bindkey '^G' localhist-toggle
 bindkey '^H' run-help
 bindkey '^K' insert-composed-char
 bindkey '^X^L' clear-screen
@@ -100,6 +101,9 @@ bindkey '^P' push-line
 bindkey '^R' insert-root-prefix
 bindkey '^T' undo
 bindkey '^Z' job-foreground
+
+bindkey '^Xh' _complete_help
+bindkey '^Xd' _complete_debug
 
 # wrap tab completion
 bindkey '^I' expand-or-complete-or-cd
