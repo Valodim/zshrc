@@ -14,7 +14,7 @@ setopt promptsubst
 # %S - path in the repository
 FMT_BRANCH="%{${reset_color}%}%b%u%c" # e.g. master¹²
 FMT_ACTION="(%{${fg[cyan]}%}%a%{${reset_color}%}"   # e.g. (rebase-i)
-FMT_PATH="%{${fg[green]}%}%R/%{${fg[yellow]}%}%S"              # e.g. ~/repo/subdir
+FMT_PATH="%F{green}%R/%%F{yellow}%S"              # e.g. ~/repo/subdir
 
 # bunch of custom hostname colors. for most, t2cc works just fine. :)
 typeset -A hostcolors
@@ -62,11 +62,11 @@ function valodim_precmd {
   fi
 
   if [[ -w $PWD ]]; then
-      pwdstat="%{${fg_bold[blue]}%}"
+      pwdstat="%B%F{blue}"
   elif [[ -r $PWD ]]; then
-      pwdstat="%{${fg_bold[yellow]}%}"
+      pwdstat="%B%F{yellow}"
   else
-      pwdstat="%{${fg_bold[red]}%}"
+      pwdstat="%B%F{red}"
   fi
   [[ -O $PWD ]] && pwdstat+=":" || pwdstat+="."
 
@@ -81,7 +81,7 @@ function valodim_precmd {
 function lprompt {
     local user=""
     if [[ "$(whoami)" != "valodim" ]]; then
-      user="%(!.%{${fg_bold[red]}%}root%{$reset_color%}@.%n@)"
+      user="%(!.%F{red}root%f@.%n@)"
     fi
 
     # hide username if it's my regular one
@@ -90,7 +90,7 @@ function lprompt {
     else
       local host_color=$FG[$(t2cc $HOST)] #$'\e'"[`$ZSH/t2cc $HOSTNAME`m"
     fi
-    local host="%{${host_color}%}%M%{${reset_color}%}"
+    local host="%{${host_color}%}%M%f"
 
     local shlvl="%(4L.%L .)"
     local exstat="%(?..%B%F{red}%?)"
@@ -104,7 +104,7 @@ function lprompt {
     pwdstat="%{${fg_bold[blue]}%}:"
 
     # disabled: \${zftpdata}
-    PROMPT="${failindicator}[${user}${host}] ${shlvl}\${pwdstat}${exstat} ${cwd} ${git1}%{$reset_color%}${git2} "
+    PROMPT="${failindicator}[${user}${host}] ${shlvl}\${pwdstat}${exstat} ${cwd} ${git1}%f%b${git2} "
 }
 
 function rprompt {
