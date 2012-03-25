@@ -50,11 +50,9 @@ function lprompt {
 
     local gitinfo='${${vcs_info_msg_0_%%.}/$HOME/~}'
 
-    local failindicator='%(?,,%{$fg[red]%}FAIL%{$reset_color%}
-)'
     pwdstat="%B%F{blue}::"
 
-    PROMPT="${failindicator}[${user}${host}] ${shlvl}\${pwdstat}${exstat} $gitinfo %b%f"
+    PROMPT="[${user}${host}] ${shlvl}\${pwdstat}${exstat} $gitinfo %b%f"
 }
 
 function rprompt {
