@@ -1,3 +1,5 @@
+autoload -U add-zsh-hook
+
 ZSH_HIST_DIR=$ZSH/hist/
 localhist_chpwd() {
     # go backwards through pwd
