@@ -83,6 +83,8 @@ zle -N        incarg
 autoload -U   insert-composed-char
 zle -N        insert-composed-char
 
+autoload -U   run-help run-help-git
+
 # vi keybindings. awesome :)
 bindkey -v
 # bindkey '^A' incarg
