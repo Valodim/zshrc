@@ -9,7 +9,7 @@ local FMT_BRANCH FMT_ACTION FMT_PATH
 # %a - action (e.g. rebase-i)
 # %R - repository path
 # %S - path in the repository
-FMT_BRANCH="%f%b%u%c" # e.g. master¹²
+FMT_BRANCH="%f%%b%b%u%c" # e.g. master¹²
 FMT_ACTION="(%F{cyan}%a%f"   # e.g. (rebase-i)
 FMT_PATH="%F{green}%R/%%F{yellow}%S"              # e.g. ~/repo/subdir
 
@@ -35,5 +35,19 @@ zstyle ':vcs_info:hg:prompt:*'  formats       "${FMT_PATH}" "${FMT_BRANCH} "    
 zstyle ':vcs_info:hg:prompt:*' actionformats  "${FMT_PATH}" "${FMT_BRANCH}${FMT_ACTION} " "☿"
 
 # special git stuff
-zstyle ':vcs_info:git:prompt:*' formats       "${FMT_PATH}" "${FMT_BRANCH} "              "±"
-zstyle ':vcs_info:git:prompt:*' actionformats "${FMT_PATH}" "${FMT_BRANCH}${FMT_ACTION} " "±"
+zstyle ':vcs_info:git:prompt:*' formats       "${FMT_PATH}" "${FMT_BRANCH} "              "%m%f±"
+zstyle ':vcs_info:git:prompt:*' actionformats "${FMT_PATH}" "${FMT_BRANCH}${FMT_ACTION} " "%m%f±"
+
+# Show count of stashed changes
+function +vi-git-stash() {
+    local -a stashes
+
+    (( $1 == 2 )) || return
+
+    if [[ -s ${hook_com[base]}/.git/refs/stash ]] ; then
+        stashes=$(git stash list 2>/dev/null | wc -l)
+        [[ -n $stashes ]] && hook_com[misc]="%F{243}${stashes} "
+    fi
+}
+
+zstyle ':vcs_info:git*+set-message:*' hooks git-stash
