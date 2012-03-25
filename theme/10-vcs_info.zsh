@@ -21,28 +21,25 @@ zstyle ':vcs_info:*:prompt:*' check-for-changes true
 
 zstyle ':vcs_info:*:prompt:*' unstagedstr '¹'  # display ¹ if there are unstaged changes
 zstyle ':vcs_info:*:prompt:*' stagedstr '²'    # display ² if there are staged changes
-zstyle ':vcs_info:*:prompt:*' max-exports 3
 
 # non-vcs
-zstyle ':vcs_info:*:prompt:*' nvcsformats   "%F{green}%3~%f" "" "»"
+zstyle ':vcs_info:*:prompt:*' nvcsformats   "%F{green}%3~%f »"
 
 # generic vcs
-zstyle ':vcs_info:*:prompt:*' formats         "${FMT_PATH}" "${FMT_BRANCH} "              "%s »"
-zstyle ':vcs_info:*:prompt:*' actionformats   "${FMT_PATH}" "${FMT_BRANCH}${FMT_ACTION} " "%s »"
+zstyle ':vcs_info:*:prompt:*' formats         "${FMT_PATH} ${FMT_BRANCH} %s »"
+zstyle ':vcs_info:*:prompt:*' actionformats   "${FMT_PATH} ${FMT_BRANCH}${FMT_ACTION} %s »"
 
 # special hg stuff
-zstyle ':vcs_info:hg:prompt:*'  formats       "${FMT_PATH}" "${FMT_BRANCH} "              "☿"
-zstyle ':vcs_info:hg:prompt:*' actionformats  "${FMT_PATH}" "${FMT_BRANCH}${FMT_ACTION} " "☿"
+zstyle ':vcs_info:hg:prompt:*'  formats       "${FMT_PATH} ${FMT_BRANCH} ☿"
+zstyle ':vcs_info:hg:prompt:*' actionformats  "${FMT_PATH} ${FMT_BRANCH}${FMT_ACTION} ☿"
 
 # special git stuff
-zstyle ':vcs_info:git:prompt:*' formats       "${FMT_PATH}" "${FMT_BRANCH} "              "%m%f±"
-zstyle ':vcs_info:git:prompt:*' actionformats "${FMT_PATH}" "${FMT_BRANCH}${FMT_ACTION} " "%m%f±"
+zstyle ':vcs_info:git:prompt:*' formats       "${FMT_PATH} ${FMT_BRANCH} %m%f±"
+zstyle ':vcs_info:git:prompt:*' actionformats "${FMT_PATH} ${FMT_BRANCH}${FMT_ACTION} %m%f±"
 
 # Show count of stashed changes
 function +vi-git-stash() {
     local -a stashes
-
-    (( $1 == 2 )) || return
 
     if [[ -s ${hook_com[base]}/.git/refs/stash ]] ; then
         stashes=$(git stash list 2>/dev/null | wc -l)

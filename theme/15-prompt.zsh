@@ -48,15 +48,13 @@ function lprompt {
     local shlvl="%(4L.%L .)"
     local exstat="%(?..%B%F{red}%?)"
 
-    local cwd='${${vcs_info_msg_0_%%.}/$HOME/~}'
-    local git1='$vcs_info_msg_1_'
-    local git2='$vcs_info_msg_2_'
+    local gitinfo='${${vcs_info_msg_0_%%.}/$HOME/~}'
 
     local failindicator='%(?,,%{$fg[red]%}FAIL%{$reset_color%}
 )'
     pwdstat="%B%F{blue}::"
 
-    PROMPT="${failindicator}[${user}${host}] ${shlvl}\${pwdstat}${exstat} ${cwd} ${git1}%f%b${git2} "
+    PROMPT="${failindicator}[${user}${host}] ${shlvl}\${pwdstat}${exstat} $gitinfo %b%f"
 }
 
 function rprompt {
