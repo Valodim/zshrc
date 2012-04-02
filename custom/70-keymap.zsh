@@ -23,9 +23,9 @@ job-foreground() {
 zle -N job-foreground
 
 inline-ls-lastarg() {
-    lastarg=${${(z)BUFFER}[-1]}
+    local lastarg=${${(z)BUFFER}[-1]}
     [[ -n $lastarg && -e $lastarg ]] || { zle -M "Last arg not a valid filename!" && return 0 }
-    zle -M -- "$(ls -l -d -h -- $lastarg)"
+    zle -M -- "$(command ls -l -d -h -- $lastarg)"
 }
 zle -N inline-ls-lastarg
 
