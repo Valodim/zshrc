@@ -22,6 +22,14 @@ job-foreground() {
 }
 zle -N job-foreground
 
+inline-ls-lastarg() {
+    lastarg=${${(z)BUFFER}[-1]}
+    zle push-line
+    BUFFER=" ll $lastarg"
+    zle accept-line
+}
+zle -N inline-ls-lastarg
+
 inline-ls() {
     zle push-line
     BUFFER=" ls"
@@ -97,6 +105,7 @@ bindkey '^G' localhist-toggle
 bindkey '^H' run-help
 bindkey '^K' insert-composed-char
 bindkey '^X^L' clear-screen
+bindkey '^X^P' inline-ls-lastarg
 bindkey '^L' inline-ls
 bindkey '^N' accept-and-menu-complete
 bindkey '^O' get-line
