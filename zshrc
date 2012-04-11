@@ -2,6 +2,7 @@
 
 # add a function path
 fpath=($ZSH/functions $ZSH/subs/zsh-completions $fpath)
+path+=($ZSH/bin)
 
 if [[ ! -a $ZSH/subs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     echo 'Missing subs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh, and probably others.'

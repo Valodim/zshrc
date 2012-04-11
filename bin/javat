@@ -1,0 +1,33 @@
+#!/bin/zsh
+
+[[ $# == 0 ]] && echo "Usage: $0 [-i import]* java code" && return 1
+
+d=$(mktemp -d)
+cd $d
+
+preserve=0
+
+touch Test.java
+
+while getopts "i:p" param; do
+    case $param in
+        i) echo "import $OPTARG;" >> Test.java ;;
+        p) preserve=1 ;;
+    esac
+done
+
+
+cat >> Test.java <<EOF
+
+class Test {
+    public static void main(String args[]) {
+        ${@[$OPTIND,$]}
+    }
+}
+EOF
+
+javac Test.java
+java Test
+
+# clean up
+[[ -n $preserve ]] && rm -r $d || echo 'Leaving tmp dir: ' $d;
