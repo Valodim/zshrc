@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-[[ $# == 0 ]] && echo "Usage: $0 [-i import]* java code" && return 1
+[[ $# == 0 ]] && echo "Usage: $0 [-p] [-i import]* java code" && return 1
 
 d=$(mktemp -d)
 cd $d
