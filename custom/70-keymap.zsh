@@ -140,37 +140,37 @@ bindkey '^[Ob' history-substring-search-down
 bindkey -M viins jj vi-cmd-mode-samepos
 
 if [[ ! -a ~/.zkbd/$TERM-${DISPLAY:-$VENDOR-$OSTYPE} && ! -a $ZSH/zkbd/$TERM-${DISPLAY:-$VENDOR-$OSTYPE} ]]; then
-    echo "Warning: Missing keymap, run autoload zkbd && zkbd!"
+    echo "Warning: Missing keymap, run autoload zkbd && zkbd. Using defaults.."
+    source $ZSH/zkbd/fallback
 else
     if [[ -a ~/.zkbd/$TERM-${DISPLAY:-$VENDOR-$OSTYPE} ]]; then
         source ~/.zkbd/$TERM-${DISPLAY:-$VENDOR-$OSTYPE}
     else
         source $ZSH/zkbd/$TERM-${DISPLAY:-$VENDOR-$OSTYPE}
     fi
-
-    # move left and right
-    bindkey "${key[Left]}" backward-char
-    bindkey "${key[Right]}" forward-char
-
-    # history completion up/down keys
-    bindkey "${key[Up]}" up-line-or-search
-    bindkey "${key[Down]}" irssi-down
-
-    bindkey "${key[Backspace]}" backward-delete-char
-    bindkey "${key[Delete]}" delete-char
-
-    bindkey -M menuselect "${key[Menu]}" accept-and-menu-complete
-    bindkey -M menuselect "${key[PageUp]}" accept-and-infer-next-history
-    bindkey -M menuselect "${key[PageDown]}" undo
-
-    bindkey -M menuselect h backward-char
-    bindkey -M menuselect j down-history
-    bindkey -M menuselect jj down-history
-    bindkey -M menuselect k up-history
-    bindkey -M menuselect l forward-char
-
-    bindkey -M menuselect o accept-and-menu-complete
-    bindkey -M menuselect i accept-and-infer-next-history
-    bindkey -M menuselect u undo
-
 fi
+
+# move left and right
+bindkey "${key[Left]}" backward-char
+bindkey "${key[Right]}" forward-char
+
+# history completion up/down keys
+bindkey "${key[Up]}" up-line-or-search
+bindkey "${key[Down]}" irssi-down
+
+bindkey "${key[Backspace]}" backward-delete-char
+bindkey "${key[Delete]}" delete-char
+
+bindkey -M menuselect "${key[Menu]}" accept-and-menu-complete
+bindkey -M menuselect "${key[PageUp]}" accept-and-infer-next-history
+bindkey -M menuselect "${key[PageDown]}" undo
+
+bindkey -M menuselect h backward-char
+bindkey -M menuselect j down-history
+bindkey -M menuselect jj down-history
+bindkey -M menuselect k up-history
+bindkey -M menuselect l forward-char
+
+bindkey -M menuselect o accept-and-menu-complete
+bindkey -M menuselect i accept-and-infer-next-history
+bindkey -M menuselect u undo
