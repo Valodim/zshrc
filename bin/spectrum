@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+typeset -Ag FG BG
+
+for color in {0..255}; do
+    FG[$color]="%{[38;5;${color}m%}"
+    BG[$color]="%{[48;5;${color}m%}"
+done
+
+for color in {0..255}; do print -P "${FG[$color][3,-3]} $color $[ [##16] $color ]" ; done
