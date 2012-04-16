@@ -1,0 +1,10 @@
+
+# simple hash from hostname to a displayable color
+function t2cc {
+  # get a number from the sha1 hash of the hostname
+  sum=$(echo "$1" | sha1sum | tr -c -d 123456789 | tail -c 15 -)
+  # divide by 256/88/8/whatever
+  sum=$(( $sum % $(echotc Co) ))
+  echo $sum
+}
+

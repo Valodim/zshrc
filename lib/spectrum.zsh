@@ -18,17 +18,3 @@ for color in {0..255}; do
     FG[$color]="%{[38;5;${color}m%}"
     BG[$color]="%{[48;5;${color}m%}"
 done
-
-function t2cc {
-  sum=$(echo "$1" | sha1sum | tr -c -d 123456789 | tail -c 15 -)
-  if [[ $TERM == "rxvt-unicode" || $TERM == "rxvt-unicode-256color" || $(echotc Co) == "256" ]]
-    then sum=$(( $sum % 256 ))
-    else sum=$(( $sum % 88 ))
-    fi
-  echo $sum
-}
-
-function spectrum {
-  for color in {0..255}; do echo "${FG[$color][3,-3]} $color" ; done
-}
-

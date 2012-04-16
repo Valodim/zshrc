@@ -7,8 +7,8 @@ setopt promptsubst
 # bunch of custom hostname colors. for most, t2cc works just fine. :)
 typeset -A hostcolors
 hostcolors=(
-    fluttershy $FG[229]
-    SteelHooves $FG[245]
+    fluttershy 229
+    SteelHooves 245
     )
 
 
@@ -39,11 +39,11 @@ function lprompt {
 
     # hide username if it's my regular one
     if [[ -n $hostcolors[$HOST] ]]; then
-      local host_color="${hostcolors[$HOST]}"
+      local host_color=$FG[$(( ${hostcolors[$HOST]} % $(echotc Co) ))]
     else
       local host_color=$FG[$(t2cc $HOST)] #$'\e'"[`$ZSH/t2cc $HOSTNAME`m"
     fi
-    local host="%{${host_color}%}%M%f"
+    local host="%{${host_color}%}%M%f%b%u%k"
 
     local shlvl="%(4L.%L .)"
     local exstat="%(?..%B%F{red}%?)"
