@@ -36,3 +36,7 @@ alias rscp="nocorrect rsync -aP --no-whole-file --inplace"
 alias rsmv="nocorrect rscp --remove-source-files"
 
 alias qum='quvi -e-r -e-v "URL" --exec "echo %t" --exec "mplayer %u"'
+
+alias t1='tmux attach -t 0'
+alias t2='tmux attach -t 1'
+alias t3='tmux attach -t 2'
