@@ -19,7 +19,7 @@ fi
 setopt rematchpcre
 
 # Match the url
-if [[ $data =~ '.*"(http://[a-zA-Z0-9_/.-]*)" .*' ]]; then
+if [[ $data =~ '.*"(http://[a-zA-Z0-9_%=/.&?-]*)" .*' ]]; then
     echo $match
 else
     echo 'No url found in answer!' >&2
