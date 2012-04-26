@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+tempdir=$(mktemp -d)
+cd $tempdir
+zsh
+cd -
+if (( $+commands[at] )); then
+    echo "Ok, removing $tempdir in an hour."
+    at now + 1 hour <<< "rm -r $tempdir"
+else
+    echo "No atd available, not removing dir.."
+fi
