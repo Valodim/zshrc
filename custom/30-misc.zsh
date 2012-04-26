@@ -1,5 +1,5 @@
 # cd to home and one path up directly
-cdpath=(~ .. ~/space)
+# cdpath=(~ .. ~/space)
 
 ## search for various types or README file in dir and display them in $PAGER
 readme ()
