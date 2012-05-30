@@ -2,7 +2,7 @@
 
 # avoid calling variable "hosts", it's an obvious candidate for use in
 #  zstyle -e '*' hosts 'reply=($hosts)'
-local expl _hosts _avahi_hosts tmp useip
+local expl _hosts _avahi_hosts _extra_hosts tmp useip
 
 if ! zstyle -a ":completion:${curcontext}:hosts" hosts _hosts; then
   if (( $+_cache_hosts == 0 )); then
@@ -73,9 +73,15 @@ if (( $+commands[avahi-browse] )); then
      done
 fi
 
+zstyle -a ":completion:${curcontext}:hosts_extra" hosts _extra_hosts
+
 _actual_hosts() {
     _wanted hosts expl host \
         compadd -M 'm:{a-zA-Z}={A-Za-z} r:|.=* r:|=*' -a "$@" - _hosts
+}
+_extra_hosts() {
+    _wanted extra_hosts expl host \
+        compadd -M 'm:{a-zA-Z}={A-Za-z} r:|.=* r:|=*' -a "$@" - _extra_hosts
 }
 _avahi_hosts() {
     _wanted avahi_hosts expl host \
@@ -84,5 +90,6 @@ _avahi_hosts() {
 
 _alternative \
     'hosts:remote host name:_actual_hosts' \
+    'extra_hosts:extra host names:_extra_hosts' \
     'avahi_hosts:avahi host name:_avahi_hosts' && ret=0
 
