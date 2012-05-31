@@ -14,3 +14,5 @@ autoload colors; colors
 zle_highlight=(region:underline
                special:bold
               )
+
+setopt numericglobsort
