@@ -36,6 +36,15 @@ inline-ls() {
 }
 zle -N inline-ls
 
+edit-arg() {
+    local -a largs
+    largs=( ${(z)LBUFFER} )
+    zle push-line
+    BUFFER=" ${EDITOR:-vim} ${largs[-1]}"
+    zle accept-line
+}
+zle -N edit-arg
+
 function vi-goto-word() {
     # get buffer into a word-split array
     local -a a
@@ -104,7 +113,8 @@ bindkey '^G' localhist-toggle
 bindkey '^H' run-help
 bindkey '^K' insert-composed-char
 bindkey '^X^L' clear-screen
-bindkey '^X^P' inline-ls-lastarg
+bindkey '^X^V' edit-arg
+bindkey '^X^N' inline-ls-lastarg
 bindkey '^L' inline-ls
 bindkey '^N' accept-and-menu-complete
 bindkey '^O' get-line
