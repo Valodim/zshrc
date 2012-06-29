@@ -1,7 +1,6 @@
 # zmv for moving files properly
 autoload -U zmv
 
-# edit command line with vi
 insert-root-prefix() {
   BUFFER="sudo $BUFFER"
   CURSOR=$(($CURSOR + 5))
@@ -15,7 +14,7 @@ vi-cmd-mode-samepos() {
 zle -N vi-cmd-mode-samepos
 
 job-foreground() {
-  if [[ $(jobs | wc -l) > 0 ]]; then
+  if [[ $#jobs > 0 ]]; then
       fg
       zle .reset-prompt
   fi
