@@ -96,6 +96,19 @@ else
     zle -N self-insert url-quote-magic
 fi
 
+# just type '...' to get '../..'
+function rationalise-dot() {
+  local MATCH
+  if [[ $LBUFFER =~ '(^|/| |    |'$'\n''|\||;|&)\.\.$' ]]; then
+    LBUFFER+=/
+    zle self-insert
+    zle self-insert
+  else
+    zle self-insert
+  fi
+}
+zle -N rationalise-dot
+
 autoload -U   edit-command-line
 zle -N        edit-command-line
 
@@ -129,6 +142,7 @@ bindkey '^P' push-line
 bindkey '^R' insert-root-prefix
 bindkey '^T' undo
 bindkey '^Z' job-foreground
+bindkey . rationalise-dot
 
 bindkey '^Xh' _complete_help
 bindkey '^Xd' _complete_debug
