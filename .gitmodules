@@ -28,3 +28,6 @@
 [submodule "subs/git-annex-zsh-completion"]
 	path = subs/git-annex-zsh-completion
 	url = git://github.com/esc/git-annex-zsh-completion.git
+[submodule "subs/stderred"]
+	path = subs/stderred
+	url = https://github.com/sickill/stderred.git

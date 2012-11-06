@@ -114,6 +114,7 @@ bindkey '^K' insert-composed-char
 bindkey '^X^L' clear-screen
 bindkey '^X^V' edit-arg
 bindkey '^X^N' inline-ls-lastarg
+bindkey '^X^R' stderred-toggle
 bindkey '^L' inline-ls
 bindkey '^N' accept-and-menu-complete
 bindkey '^O' get-line
