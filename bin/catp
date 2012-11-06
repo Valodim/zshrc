@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+strace -p $1 -e write -s 99999 |& while read -r line; do
+    [[ $line == write\([12],* ]] && echo ${${line#write\(?,\ \"}%\",\ <->\)\ =\ <->}
+done
