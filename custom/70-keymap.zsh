@@ -67,6 +67,12 @@ function irssi-down() {
 }
 zle -N irssi-down
 
+function copy-to-clipboard() {
+    (( $+commands[xclip] )) || return
+    echo -n $BUFFER | xclip -i
+}
+zle -N copy-to-clipboard
+
 # expand-or-complete, but sets buffer to "cd" if it's empty
 function expand-or-complete-or-cd() {
     if [[ $#BUFFER == 0 ]]; then
@@ -114,6 +120,7 @@ bindkey '^K' insert-composed-char
 bindkey '^X^L' clear-screen
 bindkey '^X^V' edit-arg
 bindkey '^X^N' inline-ls-lastarg
+bindkey '^X^X' copy-to-clipboard
 bindkey '^X^R' stderred-toggle
 bindkey '^L' inline-ls
 bindkey '^N' accept-and-menu-complete
