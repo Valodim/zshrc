@@ -134,7 +134,6 @@ bindkey '^X^L' clear-screen
 bindkey '^X^V' edit-arg
 bindkey '^X^N' inline-ls-lastarg
 bindkey '^X^X' copy-to-clipboard
-bindkey '^X^R' stderred-toggle
 bindkey '^L' inline-ls
 bindkey '^N' accept-and-menu-complete
 bindkey '^O' get-line

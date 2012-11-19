@@ -28,8 +28,6 @@ function valodim_precmd {
   [[ -z $localhist ]] && pwdstat+="%F{blue}" || pwdstat+="%F{cyan}"
   [[ -z $localhist_disable ]] && pwdstat+=":" || pwdstat+="."
 
-  (( $+ld_preload[(r)*stderred*] )) || pwdstat+="%F{red}:"
-
   vcs_info 'prompt'
 }
 
