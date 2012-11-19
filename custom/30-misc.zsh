@@ -17,6 +17,8 @@ readme ()
 # (measured in seconds) are greater than this value have timing
 # statistics printed for them.
 REPORTTIME=2
+# This is the default TIMEFORMAT string, but with a bell. Ding ding. :)
+TIMEFORMAT="%J  %U user %S system %P cpu %*E total"$'\a'
 
 function cs() { cd "$1" && ls }
 function mkcd() { mkdir "$1" && cd "$1"; }
