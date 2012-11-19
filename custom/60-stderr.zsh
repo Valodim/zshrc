@@ -25,12 +25,13 @@
     # check again: got the file?
     if [[ -e $ZSH/subs/stderred/build/libstderred.so ]]; then
         ld_preload+=( $ZSH/subs/stderred/build/libstderred.so )
+        # custom color
+        export STDERRED_ESC_CODE=$'\e[38;5;217m'
 
         # ok, create keybinding
         stderred-toggle() {
             local -a stderred
-            stderred=( $ZSH/subs/stderred/build/libstderred.so )
-            (( $+ld_preload[(r)*stderred*] )) && ld_preload=( ${ld_preload:|stderred} ) || ld_preload+=( $stderred )
+            (( $+ld_preload[(r)*stderred*] )) && ld_preload=( ${ld_preload:#$ZSH/subs/stderred/build/libstderred.so} ) || ld_preload+=( $ZSH/subs/stderred/build/libstderred.so )
 
             # evil hack to refresh prompt :)
             for f in $precmd_functions; do

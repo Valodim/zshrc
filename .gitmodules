@@ -31,3 +31,6 @@
 [submodule "subs/stderred"]
 	path = subs/stderred
 	url = https://github.com/sickill/stderred.git
+[submodule "subs/zsh-curl-completion"]
+	path = subs/zsh-curl-completion
+	url = https://github.com/Valodim/zsh-curl-completion.git
