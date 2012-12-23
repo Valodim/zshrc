@@ -58,10 +58,4 @@ function lprompt {
     PROMPT="[${user}${host}] ${shlvl}\${pwdstat}${exstat} $gitinfo %b%f"
 }
 
-function rprompt {
-    local hist='%!'
-    RPS1="${hist}"
-}
-
 lprompt
-rprompt
