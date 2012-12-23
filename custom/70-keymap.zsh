@@ -46,7 +46,7 @@ zle -N edit-arg
 
 function accept-line-rdate() {
     local old=$RPROMPT
-    RPROMPT=$(date +%T)
+    RPROMPT=$(date +%T 2>/dev/null)
     zle reset-prompt
     RPROMPT=$old
     zle accept-line
