@@ -1,4 +1,4 @@
+ZSH_DBG=/proc/self/fd/2
 export ZSH=$HOME/.zsh
+export ZSH_THEME=plain
 source $ZSH/zshrc
-
-source $HOME/.zshenv
