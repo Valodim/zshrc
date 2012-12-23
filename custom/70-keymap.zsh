@@ -44,6 +44,15 @@ edit-arg() {
 }
 zle -N edit-arg
 
+function accept-line-rdate() {
+    local old=$RPROMPT
+    RPROMPT=$(date +%T)
+    zle reset-prompt
+    RPROMPT=$old
+    zle accept-line
+};
+zle -N accept-line-rdate
+
 function vi-goto-word() {
     # get buffer into a word-split array
     local -a a
@@ -135,6 +144,7 @@ bindkey '^X^V' edit-arg
 bindkey '^X^N' inline-ls-lastarg
 bindkey '^X^X' copy-to-clipboard
 bindkey '^L' inline-ls
+bindkey '^M' accept-line-rdate
 bindkey '^N' accept-and-menu-complete
 bindkey '^O' get-line
 bindkey '^P' push-line

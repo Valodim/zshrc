@@ -62,7 +62,7 @@ function valodim_precmd {
 function lprompt {
     local user=""
     if [[ "$(whoami)" != "valodim" ]]; then
-        user="%(!.%F{red}.%F{245})%n $sep2 "
+        user="%(!.%F{red}.%F{247})%n $sep2 "
     fi
 
     # hide username if it's my regular one
@@ -87,11 +87,5 @@ function lprompt {
     PROMPT="${shlvl}${userhost} \$prompt_stats${exstat}${gitinfo}%k$sep1%b%f "
 }
 
-function rprompt {
-    local hist='%!'
-    RPS1="${hist}"
-}
-
 lprompt
-rprompt
 
