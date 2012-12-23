@@ -176,6 +176,8 @@ bindkey '^[OC' forward-word-match
 # ctrl-up and ctrl-down for substring search
 bindkey '^[Oa' history-substring-search-up
 bindkey '^[Ob' history-substring-search-down
+bindkey '^[OA' history-substring-search-up
+bindkey '^[OB' history-substring-search-down
 
 bindkey -M viins jj vi-cmd-mode-samepos
 
