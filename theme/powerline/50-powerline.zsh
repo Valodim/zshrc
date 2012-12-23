@@ -77,7 +77,7 @@ function lprompt {
     # old version, inner-prompt segment
     # local shlvl="%(2L.%K{104}$sep1%F{white} %L %F{104}.)"
     # new version, repeated > before host
-    local shlvl="%K{238}%F{5}$sep1${(l:$SHLVL-1::⮁:):-} "
+    local shlvl="%K{238}%F{$host_color}$sep1${(l:$SHLVL-1::⮁:):-} "
     local exstat="%(?..%K{red}$sep1%F{white} %B%? %b%F{red})"
     local gitinfo='${${vcs_info_msg_0_%%.}/$HOME/~}'
 
