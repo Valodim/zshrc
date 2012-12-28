@@ -79,12 +79,13 @@ function lprompt {
     # new version, repeated > before host
     local shlvl="%K{238}%F{$host_color}$sep1${(l:$SHLVL-1::⮁:):-} "
     local exstat="%(?..%K{red}$sep1%F{white} %B%? %b%F{red})"
+    local jobstat="%(1j.%K{green}$sep1%F{white} %B%j %b%F{green}.)"
     local gitinfo='${${vcs_info_msg_0_%%.}/$HOME/~}'
 
     # special bits from precmd
     prompt_stats="%F{black}"
 
-    PROMPT="${shlvl}${userhost} \$prompt_stats${exstat}${gitinfo}%k$sep1%b%f "
+    PROMPT="${shlvl}${userhost} \$prompt_stats${exstat}${jobstat}${gitinfo}%k$sep1%b%f "
 }
 
 lprompt

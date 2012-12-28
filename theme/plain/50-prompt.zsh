@@ -49,13 +49,14 @@ function lprompt {
     local host="%{${host_color}%}%M%f%b%u%k"
 
     local shlvl="%(4L.%L .)"
-    local exstat="%(?..%B%F{red}%?)"
+    local exstat="%(1j. %B%F{green}%j.)"
+    local jobstat="%(?..%B%F{red}%?)"
 
     local gitinfo='${${vcs_info_msg_0_%%.}/$HOME/~}'
 
     pwdstat="%B%F{blue}::"
 
-    PROMPT="[${user}${host}] ${shlvl}\${pwdstat}${exstat} $gitinfo %b%f"
+    PROMPT="[${user}${host}] ${shlvl}\${pwdstat}${jobstat}${exstat} $gitinfo %b%f"
 }
 
 lprompt
