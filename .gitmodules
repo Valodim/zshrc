@@ -31,3 +31,6 @@
 [submodule "subs/zsh-curl-completion"]
 	path = subs/zsh-curl-completion
 	url = https://github.com/Valodim/zsh-curl-completion.git
+[submodule "subs/zsh-prompt-powerline"]
+	path = subs/zsh-prompt-powerline
+	url = https://github.com/Valodim/zsh-prompt-powerline.git
