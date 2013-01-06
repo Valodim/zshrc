@@ -7,7 +7,7 @@ prompt_valodim_help () {
 	print 'Requires ZSH_VERSION 5.0.0'$'\n'
     <<-\EOF
         My basic prompt. Not too fancy, but not too plain either. I used, loved
-        and tinkered on it quite some time.
+        and tinkered on it for quite some time.
 
         The RPROMPT is empty.
 	EOF
@@ -18,12 +18,6 @@ prompt_valodim_vcsstyles () {
     local FMT_BRANCH FMT_ACTION FMT_PATH
 
     # set formats
-    # %b - branchname
-    # %u - unstagedstr (see below)
-    # %c - stangedstr (see below)
-    # %a - action (e.g. rebase-i)
-    # %R - repository path
-    # %S - path in the repository
     FMT_BRANCH="%f%%b%b%u%c" # e.g. master¹²
     FMT_ACTION="(%F{cyan}%a%f"   # e.g. (rebase-i)
     FMT_PATH="%F{green}%R/%%F{yellow}%S"              # e.g. ~/repo/subdir
@@ -32,30 +26,35 @@ prompt_valodim_vcsstyles () {
 
     # check-for-changes can be really slow.
     # you should disable it, if you work with large repositories
-    zstyle ':vcs_info:*:prompt:*' check-for-changes true
+    zstyle ':vcs_info:*:valodim:*' check-for-changes true
 
-    zstyle ':vcs_info:*:prompt:*' unstagedstr '¹'  # display ¹ if there are unstaged changes
-    zstyle ':vcs_info:*:prompt:*' stagedstr '²'    # display ² if there are staged changes
+    zstyle ':vcs_info:*:valodim:*' unstagedstr '¹'  # display ¹ if there are unstaged changes
+    zstyle ':vcs_info:*:valodim:*' stagedstr '²'    # display ² if there are staged changes
 
     # non-vcs
-    zstyle ':vcs_info:*:prompt:*' nvcsformats   "%F{green}%3~%f »"
+    zstyle ':vcs_info:*:valodim:*' nvcsformats   "%F{green}%3~%f »"
 
     # generic vcs
-    zstyle ':vcs_info:*:prompt:*' formats         "${FMT_PATH} ${FMT_BRANCH} %s »"
-    zstyle ':vcs_info:*:prompt:*' actionformats   "${FMT_PATH} ${FMT_BRANCH}${FMT_ACTION} %s »"
+    zstyle ':vcs_info:*:valodim:*' formats         "${FMT_PATH} ${FMT_BRANCH} %s »"
+    zstyle ':vcs_info:*:valodim:*' actionformats   "${FMT_PATH} ${FMT_BRANCH}${FMT_ACTION} %s »"
 
     # special hg stuff
-    zstyle ':vcs_info:hg:prompt:*'  formats       "${FMT_PATH} ${FMT_BRANCH} ☿"
-    zstyle ':vcs_info:hg:prompt:*' actionformats  "${FMT_PATH} ${FMT_BRANCH}${FMT_ACTION} ☿"
+    zstyle ':vcs_info:hg:valodim:*'  formats       "${FMT_PATH} ${FMT_BRANCH} ☿"
+    zstyle ':vcs_info:hg:valodim:*' actionformats  "${FMT_PATH} ${FMT_BRANCH}${FMT_ACTION} ☿"
 
     # special git stuff
-    zstyle ':vcs_info:git:prompt:*' formats       "${FMT_PATH} ${FMT_BRANCH} %m%f±"
-    zstyle ':vcs_info:git:prompt:*' actionformats "${FMT_PATH} ${FMT_BRANCH}${FMT_ACTION} %m%f±"
+    zstyle ':vcs_info:git:valodim:*' formats       "${FMT_PATH} ${FMT_BRANCH} %m%f±"
+    zstyle ':vcs_info:git:valodim:*' actionformats "${FMT_PATH} ${FMT_BRANCH}${FMT_ACTION} %m%f±"
+
+    # lofi formats. see ../custom/96-prompt-lofi.zsh
+    zstyle ':vcs_info:*:valodim:*'   lofiformats   "%F{green}%3~%f %s »"
+    zstyle ':vcs_info:hg:valodim:*'  lofiformats   "%F{green}%3~%f ☿"
+    zstyle ':vcs_info:git:valodim:*' lofiformats   "%F{green}%3~%f ±"
 
     local -a hooks
     (( $+valodim_settings[git-st] )) && hooks+=( git-valodim-st )
     (( $+valodim_settings[git-stash] )) && hooks+=( git-valodim-stash )
-    zstyle ':vcs_info:git*+set-message:*' hooks $hooks
+    zstyle ':vcs_info:git*+set-message:valodim:*' hooks $hooks
 
 }
 
@@ -112,7 +111,7 @@ prompt_valodim_precmd () {
 
     (( $+ld_preload[(r)*stderred*] )) || pwdstat+="%F{red}:"
 
-    vcs_info 'prompt'
+    vcs_info 'valodim'
 }
 
 prompt_valodim_ps1 () {
