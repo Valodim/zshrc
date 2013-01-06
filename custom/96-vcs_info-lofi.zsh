@@ -18,6 +18,13 @@
     local -xA hook_com
     local -xa msgs
 
+    # lofi mode enabled?
+    if ! zstyle -t ":vcs_info:${vcs}:${usercontext}:${rrn}" lofi ; then
+        # if not, just leave.
+        return 0
+    fi
+
+    # get lofi styles
     zstyle -a ":vcs_info:${vcs}:${usercontext}:${rrn}" lofiformats msgs
 
     # if no lofi styles are set, better chicken out here
