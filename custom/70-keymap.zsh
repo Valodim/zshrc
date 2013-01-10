@@ -107,11 +107,17 @@ fi
 
 # just type '...' to get '../..'
 function rationalise-dot() {
-  local MATCH
+  local MATCH dir
   if [[ $LBUFFER =~ '(^|/| |    |'$'\n''|\||;|&)\.\.$' ]]; then
     LBUFFER+=/
     zle self-insert
     zle self-insert
+    dir=${${(z)LBUFFER}[-1]}
+    [[ -e $dir ]] && zle -M $dir(:a)
+  elif [[ $LBUFFER[-1] == '.' ]]; then
+    zle self-insert
+    dir=${${(z)LBUFFER}[-1]}
+    [[ -e $dir ]] && zle -M $dir(:a)
   else
     zle self-insert
   fi
