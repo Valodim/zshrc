@@ -46,50 +46,18 @@ prompt_valodim_vcsstyles () {
     zstyle ':vcs_info:git:valodim:*' formats       "${FMT_PATH} ${FMT_BRANCH} %m%f±"
     zstyle ':vcs_info:git:valodim:*' actionformats "${FMT_PATH} ${FMT_BRANCH}${FMT_ACTION} %m%f±"
 
-    # lofi formats. see ../custom/96-prompt-lofi.zsh
+    # lofi formats. see ../custom/96-vcs_info-lofi.zsh
     zstyle ':vcs_info:*:valodim:*'   lofiformats   "%F{green}%3~%f %s »"
     zstyle ':vcs_info:hg:valodim:*'  lofiformats   "%F{green}%3~%f ☿"
     zstyle ':vcs_info:git:valodim:*' lofiformats   "%F{green}%3~%f ±"
 
-    local -a hooks
-    (( $+valodim_settings[git-st] )) && hooks+=( git-valodim-st )
-    (( $+valodim_settings[git-stash] )) && hooks+=( git-valodim-stash )
-    zstyle ':vcs_info:git*+set-message:valodim:*' hooks $hooks
+    # see ../custom/96-vcs_info-githooks.zsh
+    # tracking formats: behind, ahead and seperator
+    zstyle ':vcs_info:git:valodim:*' trackingformats "%%F{green}+%a%%f" "%%F{red}-%b%%f" "%%F{green}+%a% / %f%%F{red}-%b%%f"
 
-}
+    # stash format
+    zstyle ':vcs_info:git:valodim:*' stashformat "%%F{243}%s "
 
-# Show remote ref name and number of commits ahead-of or behind
-function +vi-git-valodim-st() {
-    local ahead behind remote
-    local -a gitstatus
-
-    # Are we on a remote-tracking branch?
-    remote=${$(git rev-parse --verify ${hook_com[branch]}@{upstream} \
-        --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
-
-    if [[ -n ${remote} ]] ; then
-        # for git prior to 1.7
-        # ahead=$(git rev-list origin/${hook_com[branch]}..HEAD | wc -l)
-        ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
-        (( $ahead )) && gitstatus+=( "%F{green}+${ahead}%f" )
-
-        # for git prior to 1.7
-        # behind=$(git rev-list HEAD..origin/${hook_com[branch]} | wc -l)
-        behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
-        (( $behind )) && gitstatus+=( "%F{red}-${behind}%f" )
-
-        hook_com[branch]="${hook_com[branch]}${(j:/:)gitstatus}"
-    fi
-}
-
-# Show count of stashed changes
-function +vi-git-valodim-stash() {
-    local -a stashes
-
-    if [[ -s ${hook_com[base]}/.git/refs/stash ]] ; then
-        stashes=$(git stash list 2>/dev/null | wc -l)
-        [[ -n $stashes ]] && hook_com[misc]="%F{243}${stashes} "
-    fi
 }
 
 prompt_valodim_precmd () {
