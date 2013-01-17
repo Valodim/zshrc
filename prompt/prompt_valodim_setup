@@ -47,9 +47,9 @@ prompt_valodim_vcsstyles () {
     zstyle ':vcs_info:git:valodim:*' actionformats "${FMT_PATH} ${FMT_BRANCH}${FMT_ACTION} %m%f±"
 
     # lofi formats. see ../custom/96-vcs_info-lofi.zsh
-    zstyle ':vcs_info:*:valodim:*'   lofiformats   "%F{green}%3~%f %s »"
-    zstyle ':vcs_info:hg:valodim:*'  lofiformats   "%F{green}%3~%f ☿"
-    zstyle ':vcs_info:git:valodim:*' lofiformats   "%F{green}%3~%f ±"
+    zstyle ':vcs_info:*:valodim:*'   lofiformats   "${FMT_PATH} %f%s »"
+    zstyle ':vcs_info:hg:valodim:*'  lofiformats   "${FMT_PATH} %f☿"
+    zstyle ':vcs_info:git:valodim:*' lofiformats   "${FMT_PATH} %f±"
 
     # see ../custom/96-vcs_info-githooks.zsh
     # tracking formats: behind, ahead and seperator
