@@ -4,6 +4,17 @@ fpath+=( $ZSH/prompt )
 # initialize the prompt contrib
 autoload promptinit ; promptinit
 
+# if this is me, don't show the name
+[[ $USER == valodim ]] && zstyle ':prompt:*:ps1' hide-user 1
+
+# couple of fixed custom hostname colors
+zstyle ':prompt:*:twilight*'    host-color 093
+zstyle ':prompt:*:pinkie*'      host-color 201
+zstyle ':prompt:*:rarity'       host-color white
+zstyle ':prompt:*:applejack'    host-color 208
+zstyle ':prompt:*:fluttershy'   host-color 226
+zstyle ':prompt:*:SteelHooves'  host-color 245
+
 # if we are on a rxvt-unicode-256color, chances are we have powerline font enabled
 if [[ $TERM == "rxvt-unicode-256color" ]]; then
     # yay, this is home! no way to detect if powerline font is available, but oh well..

@@ -64,52 +64,51 @@ prompt_valodim_precmd () {
     setopt localoptions noksharrays unset
 
     if [[ -w $PWD ]]; then
-        pwdstat="%B%F{blue}"
+        prompt_bits="%B%F{blue}"
     elif [[ -r $PWD ]]; then
-        pwdstat="%B%F{yellow}"
+        prompt_bits="%B%F{yellow}"
     else
-        pwdstat="%B%F{red}"
+        prompt_bits="%B%F{red}"
     fi
-    [[ -O $PWD ]] && pwdstat+=":" || pwdstat+="."
+    [[ -O $PWD ]] && prompt_bits+=":" || prompt_bits+="."
 
     # add info about localhist status
     # note this looks default if no localhist specific stuff happens at all
-    [[ -z $localhist ]] && pwdstat+="%F{blue}" || pwdstat+="%F{cyan}"
-    [[ -z $localhist_disable ]] && pwdstat+=":" || pwdstat+="."
+    [[ -z $localhist ]] && prompt_bits+="%F{blue}" || prompt_bits+="%F{cyan}"
+    [[ -z $localhist_disable ]] && prompt_bits+=":" || prompt_bits+="."
 
-    (( $+ld_preload[(r)*stderred*] )) || pwdstat+="%F{red}:"
+    (( $+ld_preload[(r)*stderred*] )) || prompt_bits+="%F{red}:"
 
     vcs_info 'valodim'
 }
 
 prompt_valodim_ps1 () {
+    setopt localoptions noksharrays extendedglob
+
+    local host_color
+    if ! zstyle -s ":prompt:valodim:ps1:${HOST}" host-color host_color; then
+        # get a number from the sha1 hash of the hostname
+        host_color=${${"$(sha1sum <<< $HOST)"//[a-z]#/}[1,5]}
+        # divide by 256/88/8/whatever
+        host_color=$(( host_color % $(echoti colors) ))
+    fi
 
     # hide username if it's my regular one (anyone else might wanna change this)
     local user=""
-    if [[ $USER != "valodim" ]]; then
+    if ! zstyle -t ':prompt:valodim:ps1' hide-user; then
       user="%(!.%F{red}root%f@.%n@)"
     fi
 
-    local host_color
-    if zstyle -s ':prompt:valodim:ps1' host-color host_color; then
-        host_color=$(( ${host_color} % $(echotc Co) ))
-    else
-        # get a number from the sha1 hash of the hostname
-        host_color=$(sha1sum <<< $HOST | tr -c -d 123456789 | tail -c 15 -)
-        # divide by 256/88/8/whatever
-        host_color=$(( host_color % $(echotc Co) ))
-    fi
     local host="%F{${host_color}%}%M%f%b%u%k"
-
     local shlvl="%(4L.%L .)"
     local exstat="%(1j. %B%F{green}%j.)"
     local jobstat="%(?..%B%F{red}%?)"
 
     local gitinfo='${${vcs_info_msg_0_%%.}/$HOME/~}'
 
-    pwdstat="%B%F{blue}::"
+    prompt_bits="%B%F{blue}::"
 
-    PROMPT="[${user}${host}] ${shlvl}\${pwdstat}${jobstat}${exstat} $gitinfo %b%f"
+    PROMPT="[${user}${host}] ${shlvl}\${prompt_bits}${jobstat}${exstat} $gitinfo %b%f"
 }
 
 prompt_valodim_setup () {
