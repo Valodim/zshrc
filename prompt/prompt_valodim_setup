@@ -77,8 +77,6 @@ prompt_valodim_precmd () {
     [[ -z $localhist ]] && prompt_bits+="%F{blue}" || prompt_bits+="%F{cyan}"
     [[ -z $localhist_disable ]] && prompt_bits+=":" || prompt_bits+="."
 
-    (( $+ld_preload[(r)*stderred*] )) || prompt_bits+="%F{red}:"
-
     vcs_info 'valodim'
 }
 
