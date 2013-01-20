@@ -109,7 +109,7 @@ prompt_valodim_setup () {
     setopt localoptions noksharrays unset
 
     # load zsh/termcap
-    zmodload zsh/termcap
+    zmodload zsh/terminfo
 
     # load vcs_info styles
     autoload -Uz vcs_info

@@ -148,7 +148,6 @@ bindkey '^X^N' inline-ls-lastarg
 bindkey '^X^X' copy-to-clipboard
 bindkey '^L' inline-ls
 bindkey '^M' accept-line-rdate
-bindkey '^N' accept-and-menu-complete
 bindkey '^O' get-line
 bindkey '^P' push-line
 bindkey '^R' insert-root-prefix
@@ -162,6 +161,7 @@ bindkey '^Xd' _complete_debug
 # wrap tab completion
 bindkey '^I' expand-or-complete-or-cd
 
+bindkey -M menuselect '^N' accept-and-menu-complete
 bindkey -M vicmd g vi-goto-word
 
 autoload -U select-word-style backward-word-match forward-word-match
@@ -184,38 +184,77 @@ bindkey '^[OB' history-substring-search-down
 
 bindkey -M viins jj vi-cmd-mode-samepos
 
-if [[ ! -a ~/.zkbd/$TERM-${DISPLAY:-$VENDOR-$OSTYPE} && ! -a $ZSH/zkbd/$TERM-${DISPLAY:-$VENDOR-$OSTYPE} ]]; then
-    echo "Warning: Missing keymap, run autoload zkbd && zkbd. Using defaults.."
-    source $ZSH/zkbd/fallback
-else
-    if [[ -a ~/.zkbd/$TERM-${DISPLAY:-$VENDOR-$OSTYPE} ]]; then
-        source ~/.zkbd/$TERM-${DISPLAY:-$VENDOR-$OSTYPE}
-    else
-        source $ZSH/zkbd/$TERM-${DISPLAY:-$VENDOR-$OSTYPE}
+() {
+
+    if zmodload zsh/terminfo && (( $+terminfo )); then
+
+        function zle-line-init () {
+            echoti smkx
+        }
+        function zle-line-finish () {
+            echoti rmkx
+        }
+        zle -N zle-line-init
+        zle -N zle-line-finish
+
+        local -A key
+
+        key[Home]=${terminfo[khome]}
+        key[End]=${terminfo[kend]}
+        key[Insert]=${terminfo[kich1]}
+        key[Delete]=${terminfo[kdch1]}
+        key[Backspace]=${terminfo[kbs]}
+        key[Up]=${terminfo[kcuu1]}
+        key[Down]=${terminfo[kcud1]}
+        key[Left]=${terminfo[kcub1]}
+        key[Right]=${terminfo[kcuf1]}
+        key[PageUp]=${terminfo[kpp]}
+        key[PageDown]=${terminfo[knp]}
+
+        # move left and right
+        bindkey "${key[Left]}" backward-char
+        bindkey "${key[Right]}" forward-char
+
+        # history completion up/down keys
+        bindkey "${key[Up]}" up-line-or-search
+        bindkey "${key[Down]}" irssi-down
+
+        bindkey "${key[Backspace]}" backward-delete-char
+        bindkey "${key[Delete]}" delete-char
+
+        bindkey -M menuselect "${key[PageUp]}" accept-and-infer-next-history
+        bindkey -M menuselect "${key[PageDown]}" undo
+
+    elif zmodload zsh/termcap && (( $+termcap )); then
+
+        local -A key
+
+        key[Home]=${termcap[kh]}
+        key[End]=${termcap[ke]}
+        key[Insert]=${termcap[kI]}
+        key[Delete]=${termcap[kD]}
+        key[Backspace]=${termcap[kb]}
+        key[Up]=${termcap[ku]}
+        key[Down]=${termcap[kd]}
+        key[Left]=${termcap[kl]}
+        key[Right]=${termcap[kr]}
+        key[PageUp]=${termcap[kN]}
+        key[PageDown]=${termcap[kP]}
+
     fi
-fi
 
-# move left and right
-bindkey "${key[Left]}" backward-char
-bindkey "${key[Right]}" forward-char
+    # move left and right
+    bindkey "${key[Left]}" backward-char
+    bindkey "${key[Right]}" forward-char
 
-# history completion up/down keys
-bindkey "${key[Up]}" up-line-or-search
-bindkey "${key[Down]}" irssi-down
+    # history completion up/down keys
+    bindkey "${key[Up]}" up-line-or-search
+    bindkey "${key[Down]}" irssi-down
 
-bindkey "${key[Backspace]}" backward-delete-char
-bindkey "${key[Delete]}" delete-char
+    bindkey "${key[Backspace]}" backward-delete-char
+    bindkey "${key[Delete]}" delete-char
 
-bindkey -M menuselect "${key[Menu]}" accept-and-menu-complete
-bindkey -M menuselect "${key[PageUp]}" accept-and-infer-next-history
-bindkey -M menuselect "${key[PageDown]}" undo
+    bindkey -M menuselect "${key[PageUp]}" accept-and-infer-next-history
+    bindkey -M menuselect "${key[PageDown]}" undo
 
-bindkey -M menuselect h backward-char
-bindkey -M menuselect j down-history
-bindkey -M menuselect jj down-history
-bindkey -M menuselect k up-history
-bindkey -M menuselect l forward-char
-
-bindkey -M menuselect o accept-and-menu-complete
-bindkey -M menuselect i accept-and-infer-next-history
-bindkey -M menuselect u undo
+}
