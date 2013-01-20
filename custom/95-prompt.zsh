@@ -15,6 +15,9 @@ zstyle ':prompt:*:applejack'    host-color 208
 zstyle ':prompt:*:fluttershy'   host-color 226
 zstyle ':prompt:*:SteelHooves'  host-color 245
 
+# check-for-changes can be really slow. I WANT IT though :P
+zstyle ':vcs_info:*' check-for-changes true
+
 # if we are on a rxvt-unicode-256color, chances are we have powerline font enabled
 if [[ $TERM == "rxvt-unicode-256color" ]]; then
     # yay, this is home! no way to detect if powerline font is available, but oh well..

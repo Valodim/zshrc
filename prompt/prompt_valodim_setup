@@ -24,10 +24,6 @@ prompt_valodim_vcsstyles () {
 
     zstyle ':vcs_info:*' enable git svn darcs bzr hg
 
-    # check-for-changes can be really slow.
-    # you should disable it, if you work with large repositories
-    zstyle ':vcs_info:*:valodim:*' check-for-changes true
-
     zstyle ':vcs_info:*:valodim:*' unstagedstr '¹'  # display ¹ if there are unstaged changes
     zstyle ':vcs_info:*:valodim:*' stagedstr '²'    # display ² if there are staged changes
 
