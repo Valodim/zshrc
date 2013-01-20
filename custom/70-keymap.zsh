@@ -1,6 +1,3 @@
-# zmv for moving files properly
-autoload -U zmv
-
 insert-root-prefix() {
   BUFFER="sudo $BUFFER"
   CURSOR=$(($CURSOR + 5))

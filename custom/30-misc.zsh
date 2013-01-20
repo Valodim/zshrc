@@ -29,3 +29,5 @@ function hex2dec { awk 'BEGIN { printf "%d\n",0x$1}'; }
 function dec2hex { awk 'BEGIN { printf "%x\n",$1}'; }
 
 autoload -U zargs
+autoload -U zmv
+

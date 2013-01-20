@@ -1,0 +1,17 @@
+#!/bin/zsh
+
+# this file checks locally modified files that I override in /functions against
+# the hash they had when I updated them, and warns if they have been updated
+
+# only do this on my main machine
+local -A a
+a=(
+    770f62a2620dbf75d7c17487fb66072076decbae  /usr/share/zsh/functions/Completion/Unix/_hosts
+    a32ae0a42091c288c0261be46c870f89b2d2787a  /usr/share/zsh/functions/Completion/Unix/_urls
+)
+
+for k v in ${(kv)a}; do
+    if [[ $(sha1sum $v | cut -d' ' -f1) != $k ]]; then
+        echo "Conflicting file: $v" > $ZSH_DBG
+    fi
+done
