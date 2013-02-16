@@ -75,7 +75,7 @@ zle -N irssi-down
 
 function copy-to-clipboard() {
     (( $+commands[xclip] )) || return
-    echo -n $BUFFER | xclip -i
+    echo -E -n - "$BUFFER" | xclip -i
 }
 zle -N copy-to-clipboard
 
