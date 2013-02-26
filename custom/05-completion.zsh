@@ -94,3 +94,27 @@ zle -C complete-history complete-word _generic
 zstyle ':completion:complete-history:*' completer _history
 
 zstyle ':complete-recent-args' use-histbang yes
+
+() {
+
+    local -a coreutils
+    coreutils=(
+        install hostid nice who users pinky stdbuf base64 basename chcon
+        cksum comm csplit cut dircolors dirname du env expand factor fmt
+        fold groups head id join link logname md5sum mkfifo nl nproc nohup od
+        paste pathchk pr printenv ptx runcon seq sha1sum sha224sum
+        sha256sum sha384sum sha512sum shred shuf sort split stat sum tac tail
+        tee timeout tr truncate tsort tty unexpand uniq unlink wc whoami
+        yes arch touch
+    )
+
+    for i in $coreutils; do
+        # all which don't already have one
+        # at time of this writing, those are:
+        #   _nice    _comm     _cut         _du         _env      _users  _id _join
+        #   _nothing _md5sum   _precommand  _printenv   _sort
+        #   _stat    _unexpand _uniq        _nothing
+        (( $+_comps[$i] )) || compdef _gnu_generic $i 
+    done
+
+}
