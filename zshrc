@@ -1,8 +1,10 @@
 # Initializes my zsh - originally based on Oh-My-Zsh
 
 # add a function path
-fpath=($ZSH/functions $ZSH/subs/zsh-completions $fpath)
+fpath=($ZSH/functions $fpath)
 path+=($ZSH/bin)
+
+[[ -d $ZSH/subs/zsh-completions/src ]] && fpath+=( $ZSH/subs/zsh-completions/src )
 
 if [[ ! -a $ZSH/subs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     echo 'Missing subs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh, and probably others.'
