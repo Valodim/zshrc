@@ -1,11 +1,15 @@
-#compdef -k menu-select ^x^g
+#compdef -k menu-select ^x^i
 
 function _complete-glob() {
 
     local gresult format REPLY
 
+
     # get glob results
-    gresult=( ${~words[$CURRENT]}(N) )
+    setopt localoptions nullglob
+    gresult=( ${~words[$CURRENT]} )
+
+    # got none? just mention it then
     (( $#gresult > 0 )) || { _message "No matches for $PREFIX" && return 0 }
 
     # we can't use _description, for some reason it screws up menu-select! sheesh!
@@ -21,8 +25,7 @@ function _complete-glob() {
     # clear prefix
     PREFIX=
 
-    # print
-    # print - $expl
+    # add actual matches
     zformat -f REPLY "$format" "d:Glob matches"
     compadd -V matches -X $REPLY -f -a gresult
 
