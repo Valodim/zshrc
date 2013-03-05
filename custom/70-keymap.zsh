@@ -132,8 +132,20 @@ zle -N        insert-composed-char
 
 autoload -U   run-help run-help-git
 
-# vi keybindings. awesome :)
-bindkey -v
+# remember all ^X keybindings (like globs)
+() {
+    local -a ctrlx_bindings
+    ctrlx_bindings=( ${(M)${(f)"$(bindkey -L)"}:#bindkey*\^X*} )
+
+    # vi keybindings. awesome :)
+    bindkey -v
+
+    # get the ^X bindings back
+    for binding in $ctrlx_bindings; do
+        "${(Qz)binding[@]}"
+    done
+}
+
 # bindkey '^A' incarg
 bindkey '^A' beginning-of-line
 bindkey '^B' accept-and-infer-next-history
