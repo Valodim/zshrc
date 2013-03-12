@@ -2,7 +2,7 @@
 
 # avoid calling variable "hosts", it's an obvious candidate for use in
 #  zstyle -e '*' hosts 'reply=($hosts)'
-local expl _hosts _avahi_hosts _extra_hosts tmp useip
+local expl _hosts _avahi_hosts _extra_hosts tmp useip opts
 
 if ! zstyle -a ":completion:${curcontext}:hosts" hosts _hosts; then
   if (( $+_cache_hosts == 0 )); then
@@ -88,7 +88,9 @@ _avahi_hosts() {
         compadd -M 'm:{a-zA-Z}={A-Za-z} r:|.=* r:|=*' -a "$@" - _avahi_hosts
 }
 
-_alternative \
+# need this to pass options, like suffix or matcher stuff
+opts=( "$@" )
+_alternative -O opts \
     'hosts:remote host name:_actual_hosts' \
     'extra_hosts:extra host names:_extra_hosts' \
     'avahi_hosts:avahi host name:_avahi_hosts' && ret=0
