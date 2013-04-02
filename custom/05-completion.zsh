@@ -50,6 +50,9 @@ zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 # on processes completion complete all user processes
 # zstyle ':completion:*:processes' command 'ps -au$USER'
 
+# x11 colors
+zstyle ":completion:*:colors" path '/etc/X11/rgb.txt'
+
 ## add colors to processes for kill completion
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 
