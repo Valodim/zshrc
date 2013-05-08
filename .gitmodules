@@ -34,3 +34,6 @@
 [submodule "subs/zsh-prompt-powerline"]
 	path = subs/zsh-prompt-powerline
 	url = https://github.com/Valodim/zsh-prompt-powerline.git
+[submodule "subs/urxvt-mime-funnel"]
+	path = subs/urxvt-mime-funnel
+	url = https://github.com/Valodim/urxvt-mime-funnel
