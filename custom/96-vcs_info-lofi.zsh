@@ -80,6 +80,17 @@ prompt-vcs-hifi-pwd () {
 zle -N prompt-vcs-hifi-pwd
 bindkey '^G^L' prompt-vcs-hifi-pwd
 
+# set lofi to false for current directory, if any kind of git command is run
+vcs-hifi-pwd-hook () {
+    if [[ $1 == git* ]] && zstyle -t ":vcs_info:*:*:$PWD" lofi; then
+        zstyle ":vcs_info:*:*:$PWD*" lofi false
+    fi
+    return 0
+}
+
+autoload -U add-zsh-hook
+add-zsh-hook zshaddhistory vcs-hifi-pwd-hook
+
 # all directories are lofi by default
 zstyle ':vcs_info:*' lofi true
 # set the hook
