@@ -31,3 +31,7 @@ function dec2hex { awk 'BEGIN { printf "%x\n",$1}'; }
 autoload -U zargs
 autoload -U zmv
 
+# add less -F capabilities to grep
+grep() {
+    command grep "$@" | less -F
+}
