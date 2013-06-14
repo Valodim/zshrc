@@ -35,3 +35,5 @@ autoload -U zmv
 grep() {
     command grep "$@" | less -F
 }
+
+autoload -U :h
