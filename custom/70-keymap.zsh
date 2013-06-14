@@ -12,8 +12,9 @@ zle -N vi-cmd-mode-samepos
 
 job-foreground() {
   if [[ $#jobstates > 0 ]]; then
-      fg
-      zle .reset-prompt
+      zle .push-line
+      BUFFER=" fg"
+      zle .accept-line
   fi
 }
 zle -N job-foreground
