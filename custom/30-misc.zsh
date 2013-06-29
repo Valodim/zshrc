@@ -23,8 +23,6 @@ TIMEFORMAT="%J  %U user %S system %P cpu %*E total"$'\a'
 function cs() { cd "$1" && ls }
 function mkcd() { mkdir "$1" && cd "$1"; }
 
-function calc() { echo "$*" | bc; }
-
 function hex2dec { awk 'BEGIN { printf "%d\n",0x$1}'; }
 function dec2hex { awk 'BEGIN { printf "%x\n",$1}'; }
 
@@ -32,8 +30,9 @@ autoload -U zargs
 autoload -U zmv
 
 # add less -F capabilities to grep
-grep() {
-    command grep "$@" | less -F
-}
+# hm. doesn't work as expected...
+# grep() {
+    # command grep "$@" | less -F
+# }
 
 autoload -U :h
