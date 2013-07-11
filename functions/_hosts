@@ -56,7 +56,7 @@ fi
 if (( $+commands[avahi-browse] && $+commands[pgrep] )) && { pgrep avahi-daemon &> /dev/null }; then
     _avahi_hosts=( )
 
-    for h in ${(f)"$(avahi-browse --parsable --no-db-lookup --cache --ignore-local _workstation._tcp 2>/dev/null)"}; do
+    for h in ${(f)"$(avahi-browse --parsable --no-db-lookup --cache --ignore-local --all 2>/dev/null)"}; do
         s=( ${(s:;:)${h//\\(#b)(???)/${(#)match[1]}}} )
         # 1 + or -
         # 2 iface
@@ -68,9 +68,14 @@ if (( $+commands[avahi-browse] && $+commands[pgrep] )) && { pgrep avahi-daemon &
         # only care about ipv4 (at this point)
         [[ $s[3] == 'IPv4' ]] || continue
 
+        # skip iphones (who cares about those)
+        [[ $s[5] == '_apple-mobdev2._tcp' ]] && continue
+
         # remove the part that's not the hostname itself, and append .local domain
         _avahi_hosts+=( "${${s[4]}% *}.local" )
      done
+
+     _avahi_hosts=( ${(u)_avahi_hosts} )
 fi
 
 zstyle -a ":completion:${curcontext}:hosts_extra" hosts _extra_hosts
