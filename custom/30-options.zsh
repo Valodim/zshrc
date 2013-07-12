@@ -16,3 +16,6 @@ zle_highlight=(region:underline
               )
 
 setopt numericglobsort
+
+# ~ substitution and tab completion after a = (for --x=filename args)
+setopt magicequalsubst
