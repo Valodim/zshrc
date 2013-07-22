@@ -4,7 +4,7 @@ autoload -U add-zsh-hook
 TRAPUSR1() { rehash };
 
 # anything newly intalled from last command?
-precmd_install() { [[ $history[$[ HISTCMD -1 ]] == *(apt-get|aptitude|pip)* ]] && killall -USR1 zsh }
+precmd_install() { [[ $history[$[ HISTCMD -1 ]] == *(apt-get|aptitude|pip)* ]] && killall -u $USER -USR1 zsh }
 
 # do this on precmd
 add-zsh-hook precmd precmd_install
