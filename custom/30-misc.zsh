@@ -36,3 +36,8 @@ autoload -U zmv
 # }
 
 autoload -U :h
+
+# load datetime, stat and mathfunc modules
+zmodload zsh/datetime
+zmodload zsh/stat
+zmodload zsh/mathfunc
