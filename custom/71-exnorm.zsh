@@ -18,6 +18,7 @@ ex-norm () {
         region_highlight=( "P$pos $[pos+1] underline" "P${#pretext} ${#PREDISPLAY} bold")
 
         # prevent zsh_syntax_highlighting from screwing up our region_highlight
+        # not sure if this works with vanilla zsh_syntax_highlight...
         local ZSH_HIGHLIGHT_MAXLENGTH=0
 
         zle recursive-edit -K main
@@ -34,11 +35,13 @@ ex-norm () {
         # $(ex +ponyswag +%p - <<< $BUFFER)
         # but we play it safe using a temp file here.
 
+        local -a posparams
+        (( CURSOR > 0 )) && posparams=( +'set ww+=l ve=onemore' +"normal! gg${CURSOR}l" +'set ww-=l ve=' )
+
         # call ex in silent mode, move $CURSOR chars to the right with proper
         # wrapping, run the specified command in normal mode, prepend position
         # of the new cursor, write and exit.
-        ex -s \
-            +'set ww+=l ve=onemore' +"normal! gg${CURSOR}l" +'set ww-=l ve=' \
+        ex -s $posparams \
             +"normal! $1" \
             +"let @a=col('.')" \
             +'normal! ggi ' \
