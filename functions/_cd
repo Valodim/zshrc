@@ -61,6 +61,12 @@ else
         local numfiles
         numfiles=( ${(Q)PREFIX:-.}/*(.) )
         _message "Files in dir: $#numfiles"
+    elif [[ -d $^cdpath/${(Q)PREFIX:-.} ]]; then
+        local numfiles
+        for d in $^cdpath/${(Q)PREFIX:-.}; do
+            numfiles=( $d/*(.) )
+            _message "Files in $d: $#numfiles"
+        done
     fi
 
     tmpcdpath=(${${(@)cdpath:#.}:#$PWD})
