@@ -1,3 +1,6 @@
+# a lot of vcs_info related stuff happened here
+autoload -U is-at-least
+is-at-least 4.3.12 || return
 
 typeset -H repocdpath_dir
 

@@ -1,3 +1,7 @@
+# using anonymous functions, which were introduced in 4.3.15
+autoload -U is-at-least
+is-at-least 4.3.15 || return
+
 ex-norm () {
 
     # customized read-from-minibuffer
