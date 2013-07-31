@@ -1,7 +1,9 @@
 
+typeset -H ZSH_RETURN_FILE=${ZSH:-$HOME}/.zsh_return
+
 # save latest dir we chpwd'd to
 return_chpwd() {
-    [[ $PWD != $HOME ]] && echo "$PWD" >! $ZSH/.return_pwd
+    [[ $PWD != $HOME ]] && echo -E "$PWD" >! $ZSH_RETURN_FILE
 }
 
 autoload -U add-zsh-hook
@@ -17,9 +19,14 @@ function accept-line-return() {
     # !! CAUSES SEGFAULT
     # zle -D accept-line-return
 
-    # if buffer is empty, return to last dir
+    if [[ ! -f $ZSH_RETURN_FILE ]]; then
+        zle -M "No return directory file!"
+        return
+    fi
+
+    # if buffer is empty, and return file exists, return to last dir
     if [[ -z $BUFFER ]]; then
-        retdir=( "$(<$ZSH/.return_pwd)"(N) )
+        retdir=( "$(<$ZSH_RETURN_FILE)"(N) )
         BUFFER="cd ${(q)retdir}"
     fi
 
