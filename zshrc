@@ -11,9 +11,9 @@ if [[ ! -a $ZSH/subs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; the
     echo 'Did you git submodule init && git submodule update ?'
 fi
 
-# load all config files from custom/ and local/
-# we do some sorting magic here: the files from both custom/ and local/ are
+# load all config files from config/ and local/
+# we do some sorting magic here: the files from both config/ and local/ are
 # ordered by their filename without regard to their path, meaning it's possible
 # to specify at what point the files in local/ will be loaded. if two filenames
 # are the same, the one in local/ will be loaded first.
-for config_file in $ZSH/(local|custom)/*.zsh(Noe!'REPLY=${REPLY:t}'!oe!'[[ $REPLY == *local* ]] && REPLY=0 || REPLY=1'!); source $config_file
+for config_file in $ZSH/(local|config)/*.zsh(Noe!'REPLY=${REPLY:t}'!oe!'[[ $REPLY == *local* ]] && REPLY=0 || REPLY=1'!); source $config_file
