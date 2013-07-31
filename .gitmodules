@@ -1,9 +1,6 @@
 [submodule "subs/url-httplink"]
 	path = subs/url-httplink
 	url = git://github.com/Valodim/zsh-_url-httplink.git
-[submodule "subs/lunar-completion"]
-	path = subs/lunar-completion
-	url = git://github.com/Valodim/lunar-zsh-completion.git
 [submodule "subs/zsh-syntax-highlighting"]
 	path = subs/zsh-syntax-highlighting
 	url = git://github.com/zsh-users/zsh-syntax-highlighting.git
@@ -19,9 +16,6 @@
 [submodule "subs/zsh-completions"]
 	path = subs/zsh-completions
 	url = git://github.com/zsh-users/zsh-completions.git
-[submodule "subs/gistpaste"]
-	path = subs/gistpaste
-	url = https://github.com/dblevins/gistpaste.git
 [submodule "subs/git-annex-zsh-completion"]
 	path = subs/git-annex-zsh-completion
 	url = git://github.com/esc/git-annex-zsh-completion.git
