@@ -19,13 +19,14 @@ function accept-line-return() {
     # !! CAUSES SEGFAULT
     # zle -D accept-line-return
 
-    if [[ ! -f $ZSH_RETURN_FILE ]]; then
-        zle -M "No return directory file!"
-        return
-    fi
-
     # if buffer is empty, and return file exists, return to last dir
     if [[ -z $BUFFER ]]; then
+        # complain if we can't go there
+        if [[ ! -f $ZSH_RETURN_FILE ]]; then
+            zle -M "No return directory file!"
+            return
+        fi
+
         retdir=( "$(<$ZSH_RETURN_FILE)"(N) )
         BUFFER="cd ${(q)retdir}"
     fi
