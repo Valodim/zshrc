@@ -41,3 +41,7 @@ alias qum='quvi -e-r -e-v "URL" --exec "echo %t" --exec "mplayer %u"'
 alias t1='tmux attach -t 0'
 alias t2='tmux attach -t 1'
 alias t3='tmux attach -t 2'
+
+# note: for multiple -n arguments, the last one will take precedence. so we can
+# do this without losing functionality.
+alias tail='tail -n 10 '
