@@ -2,6 +2,11 @@
 autoload -U is-at-least
 is-at-least 4.3.12 || return
 
+# this hook adds the base path of a repository to the cdpath, for as long as
+# the pwd stays inside the repository.
+#
+# plays nice with vcs_info-lofi.
+
 typeset -H repocdpath_dir
 
 +vi-repocdpath () {
@@ -52,4 +57,4 @@ add-zsh-hook chpwd repocdpath_chpwd
 # add to hooks
 autoload -U vcs_info_hookadd
 vcs_info_hookadd set-message repocdpath
-
+vcs_info_hookadd set-lofi-message repocdpath
