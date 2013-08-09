@@ -2,6 +2,13 @@
 autoload -U is-at-least
 is-at-least 4.3.12 || return
 
+# make sure disambiguate functions are even available, don't bother otherwise
+() {
+    local -a tmp;
+    tmp=( $^fpath/disambiguate(N) $^fpath/disambiguate-keeplast(N) )
+    (( $#tmp >= 2 ))
+} || return
+
 # this vcs_info hook changes the base and subdir variables, which are used as
 # %R and %S in vcs_info styles, to non-ambiguous prefix versions, keeping the
 # last path element intact.
