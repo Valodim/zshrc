@@ -55,6 +55,8 @@ prompt_valodim_vcsstyles () {
 }
 
 prompt_valodim_precmd () {
+    local exstat=$?
+
     setopt localoptions noksharrays unset
 
     prompt_bits=( )
@@ -72,6 +74,9 @@ prompt_valodim_precmd () {
     # note this looks default if no localhist specific stuff happens at all
     [[ -z $localhist ]] && prompt_bits+=( "%F{blue}" ) || prompt_bits+=( "%F{cyan}" )
     [[ -z $localhist_disable ]] && prompt_bits+=( ":" ) || prompt_bits+=( "." )
+
+    # if there is an exit status, show it
+    (( exstat > 0 )) && prompt_bits+=( '%B%F{red}%?' )
 
     # we use %1v for the path (outside repositories), to allow the hook below
     # to mess with it. I use it for disambiguate, mostly.
@@ -110,14 +115,13 @@ prompt_valodim_ps1 () {
 
     local host="%F{${host_color}%}%M%f%b%u%k"
     local shlvl="%(4L.%L .)"
-    local exstat="%(1j. %B%F{green}%j.)"
-    local jobstat="%(?..%B%F{red}%?)"
+    local jobstat="%(1j. %B%F{green}%j.)"
 
     local gitinfo='${${vcs_info_msg_0_%%.}/$HOME/~}'
 
     prompt_bits="%B%F{blue}::"
 
-    PROMPT="[${user}${host}] ${shlvl}\${prompt_bits}${jobstat}${exstat} $gitinfo %b%f"
+    PROMPT="[${user}${host}] ${shlvl}\${prompt_bits}${jobstat} $gitinfo %b%f"
 }
 
 prompt_valodim_setup () {

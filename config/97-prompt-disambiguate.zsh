@@ -121,8 +121,12 @@ disambiguate () {
     return 0
 }
 
-# overrides other styles, buuut oh well.
-zstyle ':prompt:*:ps1' precmd-hooks +prompt-path-disambiguate
+# don't override other styles with our own - add it to the list!
+() {
+    local hooks
+    zstyle -a ':prompt:*:ps1' precmd-hooks hooks
+    zstyle ':prompt:*:ps1' precmd-hooks $hooks +prompt-path-disambiguate
+}
 
 # use vcs_info_hookadd to add hooks in a conflict free way
 autoload -U vcs_info_hookadd
