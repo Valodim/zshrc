@@ -4,6 +4,9 @@
 # paste is going to be input, reads the entire paste until the end code, and
 # inserts it as a single operation.
 
+# relies on zle_line_init_functions and zle_line_finish_functions being
+# appropriately called. see config/70-keymap.zsh
+
 # code mostly stolen from^W^Winspired by Mikachu
 # http://www.zsh.org/mla/users/2011/msg00367.html
 
@@ -16,7 +19,6 @@ bindkey -N paste
 bindkey -R -M paste "^@"-"\M-^?" paste-insert
 # these are the codes sent around the pasted text in bracketed
 # paste mode.
-# do the first one with both -M viins and -M vicmd in vi mode
 bindkey '^[[200~' _start_paste
 bindkey -M paste '^[[201~' _end_paste
 # insert newlines rather than carriage returns when pasting newlines
