@@ -197,6 +197,12 @@ bindkey '^[OB' history-substring-search-down
 
 bindkey -M viins jj vi-cmd-mode-samepos
 
+typeset -aH zle_keymap_select_functions
+function zle-keymap-select () {
+    for f in $zle_keymap_select_functions; "${(@z)f}"
+}
+zle -N zle-keymap-select
+
 typeset -aH zle_line_init_functions
 function zle-line-init () {
     for f in $zle_line_init_functions; "${(@z)f}"
