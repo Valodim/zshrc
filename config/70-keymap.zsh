@@ -197,18 +197,24 @@ bindkey '^[OB' history-substring-search-down
 
 bindkey -M viins jj vi-cmd-mode-samepos
 
+typeset -aH zle_line_init_functions
+function zle-line-init () {
+    for f in $zle_line_init_functions; "${(@z)f}"
+}
+zle -N zle-line-init
+
+typeset -aH zle_line_finish_functions
+function zle-line-finish () {
+    for f in $zle_line_finish_functions; "${(@z)f}"
+}
+zle -N zle-line-finish
+
 () {
 
     if zmodload zsh/terminfo && (( $+terminfo )); then
 
-        function zle-line-init () {
-            echoti smkx
-        }
-        function zle-line-finish () {
-            echoti rmkx
-        }
-        zle -N zle-line-init
-        zle -N zle-line-finish
+        zle_line_init_functions+=( 'echoti smkx' )
+        zle_line_finish_functions+=( 'echoti rmkx' )
 
         local -A key
 
