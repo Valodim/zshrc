@@ -11,9 +11,10 @@ if [[ ! -a $ZSH/subs/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; the
     echo 'Did you git submodule init && git submodule update ?'
 fi
 
-# load all config files from config/ and local/
-# we do some sorting magic here: the files from both config/ and local/ are
-# ordered by their filename without regard to their path, meaning it's possible
-# to specify at what point the files in local/ will be loaded. if two filenames
-# are the same, the one in local/ will be loaded first.
-for config_file in $ZSH/(local|config)/*.zsh(Noe!'REPLY=${REPLY:t}'!oe!'[[ $REPLY == *local* ]] && REPLY=0 || REPLY=1'!); source $config_file
+# load all config files from config/, module/ and local/ we do some sorting
+# magic here: the files from all three directories are ordered by their
+# filename without regard to their path, meaning it's possible to specify at
+# what point the files in local/ will be loaded. if two filenames are the same,
+# the one in local/ will be loaded first. the ^-@ ignores dead symlinks, which
+# are probably the result of missing submodles.
+for config_file in $ZSH/(local|config|modules)/*.zsh(Noe!'REPLY=${REPLY:t}'!oe!'[[ $REPLY == *local* ]] && REPLY=0 || REPLY=1'!^-@); source $config_file
