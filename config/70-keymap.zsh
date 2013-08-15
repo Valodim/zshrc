@@ -63,13 +63,31 @@ function vi-goto-word() {
 }
 zle -N vi-goto-word
 
+# this function works like history-beginning-search-forward-end, except at the
+# bottom end of history, if the buffer is non-empty, it is put into history.
+# this way, commands can be "stashed away" into history without being run, just
+# like in irssi.
 function irssi-down() {
     if [[ -n "$BUFFER" && ${(%):-'%!'} == $HISTNO ]]; then
         print -s "$BUFFER"
         zle end-of-history
         BUFFER=''
     else
-        zle down-line-or-search
+        # compatibility with history-beginning-search-forward-end
+        integer cursor=$CURSOR mark=$MARK
+        if [[ $LASTWIDGET == history-beginning-search-*-end || $LASTWIDGET == irssi-down ]]
+        then
+            CURSOR=$MARK
+        else
+            MARK=$CURSOR
+        fi
+        if zle .history-beginning-search-forward; then
+            zle .end-of-line
+        else
+            CURSOR=$cursor
+            MARK=$mark
+            return 1
+        fi
     fi
 }
 zle -N irssi-down
@@ -132,6 +150,10 @@ autoload -U   insert-composed-char
 zle -N        insert-composed-char
 
 autoload -U   run-help run-help-git
+
+autoload -U   history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
 
 # remember all ^X keybindings (like globs)
 () {
@@ -276,7 +298,7 @@ zle -N zle-line-finish
     bindkey "${key[End]}" end-of-line
 
     # history completion up/down keys
-    bindkey "${key[Up]}" up-line-or-search
+    bindkey "${key[Up]}" history-beginning-search-backward-end
     bindkey "${key[Down]}" irssi-down
 
     bindkey "${key[Backspace]}" backward-delete-char
