@@ -7,9 +7,6 @@
 [submodule "subs/LS_COLORS"]
 	path = subs/LS_COLORS
 	url = git://github.com/trapd00r/LS_COLORS.git
-[submodule "subs/zsh-history-substring-search"]
-	path = subs/zsh-history-substring-search
-	url = git://github.com/Valodim/zsh-history-substring-search.git
 [submodule "subs/zsh-complete-recent-args"]
 	path = subs/zsh-complete-recent-args
 	url = git://github.com/Valodim/zsh-complete-recent-args.git
