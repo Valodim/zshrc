@@ -10,9 +10,6 @@
 # code mostly stolen from^W^Winspired by Mikachu
 # http://www.zsh.org/mla/users/2011/msg00367.html
 
-# if this is not rxvt-unicode for xterm, tread no further.
-[[ $TERM == rxvt-unicode* || $TERM == xterm* ]] || return 0
-
 # create a new keymap to use while pasting
 bindkey -N paste
 # make everything in this keymap call our custom widget
@@ -54,6 +51,15 @@ function _paste_insert() {
 zle -N _start_paste
 zle -N _end_paste
 zle -N paste-insert _paste_insert
+
+# request bracketed paste mode only from terminals known to support the
+# feature. do this here to support the paste keys either way.
+
+# only if the terminal is known to support bracketed paste
+[[ $TERM == rxvt-unicode* || $TERM == xterm* || -n $TMUX ]] || return
+
+# in case of tmux, only versions 1.7 and up
+[[ -n $TMUX ]] && [[ ${"$(tmux -V)"#tmux } -lt 1.7 ]] && return
 
 function zle-line-init-bpaste () {
     printf '\e[?2004h'
