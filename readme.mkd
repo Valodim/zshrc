@@ -1,5 +1,5 @@
 My zsh configs. If you don't know what's what, you probably shouldn't use it
-but get your own going. Feel free though :)
+but get your own going. Feel free to steal, though. I try to keep it usable :)
 
 Interesting keybindings:
 
@@ -9,15 +9,16 @@ Interesting keybindings:
         ^P push line on stack
         ^O insert line from stack
         ^T undo
-        ^R prepend "sudo "
+        ^R incremental history search
+        ^Y prepend "sudo "
         ^X^X copy $BUFFER to clipboard using xclip
         ctrl-left/right will move along argument boundaries
         repeated ... will be turned into ../.. (mikachu's rationalise-dots)
 
     history:
-        down on empty line will clear the line but add it to history, irssi-style 
-        up/down will search history on first word match
-        ctrl-up/down will substring-search history
+        ^B accept current buffer. if there is a matching line in history, push the following one
+        down on a non-empty line will push it to history without executing, irssi-style
+        up/down will search history on prefix match
 
     local history:
         any directory that has a local history file (stored in
@@ -40,7 +41,50 @@ Interesting keybindings:
         page-down will undo (basically, go up directory)
         menu will accept selection but stay in menu-complete
 
-My Prompt:
+Modules:
+--
+
+These provide a variety of stand-alone functionality.
+
+### 20-rehash-hook.zsh
+Listens for USR1 and rehashes when received. Sends USR1 to all instances of zsh
+after a command starting with apt-get, aptitude or pip is run (might need to
+expand this list?)
+
+### 50-title.zsh
+Sets the window and tmux tab title.
+
+### 50-vicursor.zsh
+Sets the cursor color to red in vicmd mode. Only in xterm, rxvt[-unicode] and
+tmux 1.8+
+
+### 72-bracket-paste.zsh
+Adds support for bracketed paste mode. Supported in xterm, rxvt-unicode and
+tmux 1.7+
+
+### 72-return.zsh
+Remembers last dir cd'ed to. In a new session, if the first line is left empty
+and accepted, changes to that dir.
+
+### 96-vcs\_info-cdpath.zsh
+Adds the base dir of a repository to cdpath.
+
+### 96-vcs\_info-githooks.zsh
+Displays info about tracking branches and stacked commits in git repositories.
+
+### 96-vcs\_info-lofi.zsh
+Displays only basic vcs info until a vcs command is run (can also be triggered
+using ^G^L).
+
+### 97-prompt-disambiguate.zsh
+Replaces the path name in prompt with a non-ambiguous prefix form.
+
+### 97-prompt-exitnames.zsh
+Replaces exit codes in prompt with names of the signals (usually) causing them.
+
+
+Prompt:
+--
 
   See https://github.com/Valodim/zsh-prompt-powerline
 
@@ -73,12 +117,6 @@ My Prompt:
   beautiful, isn't it? :)
 
 Tidbits:
- - on urxvt, the cursor will become red when in vi normal mode
  - the hostname color in the prompt is generated from a hash
  - cd completion will display the number of regular files in the current dir
  - using .. to go up directories will display the absolute path below the prompt
-
-Caveats:
- - doesn't work well without 256 colors
- - doesn't work well for people who are not me
- - probably requires a newish zsh
