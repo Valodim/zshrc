@@ -4,11 +4,15 @@ but get your own going. Feel free to steal, though. I try to keep it usable :)
 Interesting keybindings:
 
     editing:
+        ^A go to beginning of line
+        ^E go to end of line
         ^F edit command line in $EDITOR
         ^H run help for current $0
         ^P push line on stack
         ^O insert line from stack
         ^T undo
+        ^U clear line
+        ^V insert next character literally
         ^R incremental history search
         ^Y prepend "sudo "
         ^X^X copy $BUFFER to clipboard using xclip
@@ -19,17 +23,6 @@ Interesting keybindings:
         ^B accept current buffer. if there is a matching line in history, push the following one
         down on a non-empty line will push it to history without executing, irssi-style
         up/down will search history on prefix match
-
-    local history:
-        any directory that has a local history file (stored in
-        ZSH/hist/$PWD/__hist) will use that history instead of
-        the global one, unless this mechanism is disabled.
-
-        commands:
-          lhc creates a local history file for the current PWD
-          lh0 disables localhist
-          lh1 enables localhist
-          ^G toggles localhist
 
     functional shortcuts:
         ^L display ls
@@ -57,6 +50,11 @@ Sets the window and tmux tab title.
 ### 50-vicursor.zsh
 Sets the cursor color to red in vicmd mode. Only in xterm, rxvt[-unicode] and
 tmux 1.8+
+
+### 60-localhist.zsh
+Enables local histories for specific directories. Use _lhc_ to create a local
+history for the current pwd. Enable with _lh1_, disable with _lh0_, or toggle
+with localhist\_toggle widget, bound to ^G by default.
 
 ### 72-bracket-paste.zsh
 Adds support for bracketed paste mode. Supported in xterm, rxvt-unicode and
