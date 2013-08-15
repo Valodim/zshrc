@@ -100,11 +100,18 @@ prompt_valodim_ps1 () {
     setopt localoptions noksharrays extendedglob
 
     local host_color
-    if ! zstyle -s ":prompt:valodim:ps1:${HOST}" host-color host_color; then
+    # can we even make any assumptions about the terminal?
+    if ! (( $+terminfo[colors] )); then
+        host_color='green'
+    elif zstyle -s ":prompt:valodim:ps1:${HOST}" host-color host_color; then
+        # make sure it's within range
+        [[ host_color == <-> ]] && host_color=$(( host_color % $terminfo[colors] ))
+        # otherwise, don't care
+    else
         # get a number from the sha1 hash of the hostname
         host_color=${${"$(sha1sum <<< $HOST)"//[a-z]#/}[1,14]}
         # divide by 256/88/8/whatever
-        host_color=$(( host_color % $(echoti colors) ))
+        host_color=$(( host_color % $terminfo[colors] ))
     fi
 
     # hide username if it's my regular one (anyone else might wanna change this)
@@ -113,7 +120,7 @@ prompt_valodim_ps1 () {
       user="%(!.%F{red}root%f@.%n@)"
     fi
 
-    local host="%F{${host_color}%}%M%f%b%u%k"
+    local host="%F{${host_color}}%M%f%b%u%k"
     local shlvl="%(4L.%L .)"
     local jobstat="%(1j. %B%F{green}%j.)"
 
