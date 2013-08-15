@@ -4,3 +4,4 @@ local
 zkbd
 hist
 .zsh_return
+.zsh_history

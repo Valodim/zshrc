@@ -1,5 +1,5 @@
 
-# setup stuff
+# variables for zsh-syntax-highlighting
 ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=$ZSH/subs/zsh-syntax-highlighting/highlighters
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 ZSH_HIGHLIGHT_MAXLENGTH=300
@@ -28,3 +28,10 @@ typeset -A ZSH_HIGHLIGHT_STYLES
 : ${ZSH_HIGHLIGHT_STYLES[precommand]:=fg=227}
 : ${ZSH_HIGHLIGHT_STYLES[commandseparator]:=none}
 
+# and zle's very own zle_highlight
+zle_highlight=(
+                region:underline
+                isearch:underline
+                special:bold
+                suffix:fg=76
+              )
