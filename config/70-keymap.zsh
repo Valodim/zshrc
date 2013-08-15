@@ -185,8 +185,9 @@ bindkey '^L' inline-ls
 bindkey '^M' accept-line-rdate
 bindkey '^O' get-line
 bindkey '^P' push-line
-bindkey '^R' insert-root-prefix
+bindkey '^R' history-incremental-search-backward
 bindkey '^T' undo
+bindkey '^Y' insert-root-prefix
 bindkey '^Z' job-foreground
 bindkey . rationalise-dot
 
