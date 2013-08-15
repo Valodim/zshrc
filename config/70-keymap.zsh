@@ -217,12 +217,13 @@ zle -N zle-line-finish
 
 () {
 
-    if zmodload zsh/terminfo && (( $+terminfo )); then
+    local -A key
+
+    # terminfo is the preferred method
+    if zmodload zsh/terminfo && (( $+terminfo[smkx] )); then
 
         zle_line_init_functions+=( 'echoti smkx' )
         zle_line_finish_functions+=( 'echoti rmkx' )
-
-        local -A key
 
         key[Home]=${terminfo[khome]}
         key[End]=${terminfo[kend]}
@@ -236,26 +237,11 @@ zle -N zle-line-finish
         key[PageUp]=${terminfo[kpp]}
         key[PageDown]=${terminfo[knp]}
 
-        # move left and right
-        bindkey "${key[Left]}" backward-char
-        bindkey "${key[Right]}" forward-char
-
-        # history completion up/down keys
-        bindkey "${key[Up]}" up-line-or-search
-        bindkey "${key[Down]}" irssi-down
-
-        bindkey "${key[Backspace]}" backward-delete-char
-        bindkey "${key[Delete]}" delete-char
-
-        bindkey -M menuselect "${key[PageUp]}" accept-and-infer-next-history
-        bindkey -M menuselect "${key[PageDown]}" undo
-
-    elif zmodload zsh/termcap && (( $+termcap )); then
-
-        local -A key
+    elif zmodload zsh/termcap && (( $+termcap[kh] )); then
 
         key[Home]=${termcap[kh]}
-        key[End]=${termcap[ke]}
+        # wtf?
+        key[End]=${termcap[@7]}
         key[Insert]=${termcap[kI]}
         key[Delete]=${termcap[kD]}
         key[Backspace]=${termcap[kb]}
@@ -266,11 +252,28 @@ zle -N zle-line-finish
         key[PageUp]=${termcap[kN]}
         key[PageDown]=${termcap[kP]}
 
+    # otherwise, just take wild guesses!
+    else
+
+        key[Home]='^[[7~'
+        key[End]='^[[8~'
+        key[Insert]='^[[2~'
+        key[Delete]='^[[3~'
+        key[Backspace]='^?'
+        key[Up]='^[OA'
+        key[Down]='^[OB'
+        key[Left]='^[OD'
+        key[Right]='^[OC'
+        key[PageUp]='^[[5~'
+        key[PageDown]='^[[6~'
+
     fi
 
-    # move left and right
+    # movements
     bindkey "${key[Left]}" backward-char
     bindkey "${key[Right]}" forward-char
+    bindkey "${key[Home]}" beginning-of-line
+    bindkey "${key[End]}" end-of-line
 
     # history completion up/down keys
     bindkey "${key[Up]}" up-line-or-search
