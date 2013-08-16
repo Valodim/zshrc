@@ -39,6 +39,25 @@ function _start_paste() {
 function _end_paste() {
     # restore keymap using the command we saved before
     "${(@)_paste_oldmap}"
+
+    setopt localoptions extendedglob
+
+    # try to guess if we're inside a quote and if we aren't, escape things that
+    # look like urls
+
+    # the LBUFFER expression will try to count non-escaped 's left of the
+    # cursor by first replacing all \' with '', stripping all non-' characters,
+    # and counting what's left.
+
+    if (( ${#${LBUFFER//\\\'/\'\'}//[^\']/} % 2 == 0 )) && [[ $_paste_content == [[:lower:]]#://* ]]; then
+        local url_seps
+        zstyle -s ':url-quote-magic:*' url-seps url_seps || url_seps='*?[]^(|)~#{}='
+        # fix these characters a bit so they work in the pattern
+        url_seps=${url_seps//\[/\\[}
+        url_seps=${url_seps//\]/\\]}
+        _paste_content=${_paste_content//(#b)([$~url_seps])/\\$match[1]}
+    fi
+
     LBUFFER+=$_paste_content
     unset _paste_content _paste_oldmap
 }
