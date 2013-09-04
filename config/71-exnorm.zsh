@@ -7,10 +7,6 @@
 # ex-norm-run may also non-interactively be called in widgets, which might be
 # useful for defining widgets based on exnorm strings.
 
-# TODO up-history does not work. without the fc -p part, regular history does
-# work as expected, so I'm not sure why this happens... the file is written
-# though and ex-norm-repeat does work.
-
 # using anonymous functions, which were introduced in 4.3.15
 autoload -U is-at-least
 is-at-least 4.3.15 || return
@@ -57,6 +53,7 @@ ex-norm () {
 
     # push exnorm history on stack, but only for the scope of this function
     fc -p -a $ZSH_EXN_HIST
+    HISTNO=$HISTCMD
 
     # anonymous scope for recursive-edit foo
     () {
