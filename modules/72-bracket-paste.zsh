@@ -46,15 +46,17 @@ function _end_paste() {
     # look like urls
 
     # the LBUFFER expression will try to count non-escaped 's left of the
-    # cursor by first replacing all \' with '', stripping all non-' characters,
+    # cursor by first removing all \', stripping all other non-' characters,
     # and counting what's left.
 
-    if (( ${#${LBUFFER//\\\'/\'\'}//[^\']/} % 2 == 0 )) && [[ $_paste_content == [[:lower:]]#://* ]]; then
-        local url_seps
-        zstyle -s ':url-quote-magic:*' url-seps url_seps || url_seps='*?[]^(|)~#{}='
+    if (( ${#${LBUFFER//\\\'/}//[^\']/} % 2 == 0 )) && [[ $_paste_content == [[:lower:]]#://* ]]; then
+        local url_seps url_metas
+        zstyle -s ':url-quote-magic:*' url-seps url_seps || url_metas='*?[]^(|)~#{}='
+        zstyle -s ':url-quote-magic:*' url-metas url_metas || url_metas=';&<>$'
         # fix these characters a bit so they work in the pattern
-        url_seps=${url_seps//\[/\\[}
-        url_seps=${url_seps//\]/\\]}
+        url_metas=${url_metas//\[/\\[}
+        url_metas=${url_metas//\]/\\]}
+        _paste_content=${_paste_content//(#b)([$~url_metas])/\\$match[1]}
         _paste_content=${_paste_content//(#b)([$~url_seps])/\\$match[1]}
     fi
 
