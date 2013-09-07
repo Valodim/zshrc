@@ -93,7 +93,8 @@ zstyle ':completion:*:*:vi(m|):*:*files' ignored-patterns \
 zle -C complete-history complete-word _generic
 zstyle ':completion:complete-history:*' completer _history
 
-zstyle ':complete-recent-args' use-histbang yes
+# not really a good idea after all :|
+# zstyle ':complete-recent-args' use-histbang yes
 
 () {
 
