@@ -25,3 +25,6 @@
 [submodule "subs/urxvt-mime-funnel"]
 	path = subs/urxvt-mime-funnel
 	url = https://github.com/Valodim/urxvt-mime-funnel
+[submodule "subs/zsh-capture-completion"]
+	path = subs/zsh-capture-completion
+	url = https://github.com/Valodim/zsh-capture-completion.git

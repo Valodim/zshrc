@@ -1,7 +1,7 @@
-# Initializes my zsh - originally based on Oh-My-Zsh
+# Initialization
 
 # add a function path
-fpath=($ZSH/functions $fpath)
+fpath=($ZSH/functions $ZSH/subs/**/functions(N) $fpath)
 path+=($ZSH/bin)
 
 [[ -d $ZSH/subs/zsh-completions/src ]] && fpath+=( $ZSH/subs/zsh-completions/src )
@@ -17,4 +17,4 @@ fi
 # what point the files in local/ will be loaded. if two filenames are the same,
 # the one in local/ will be loaded first. the ^-@ ignores dead symlinks, which
 # are probably the result of missing submodles.
-for config_file in $ZSH/(local|config|modules)/*.zsh(Noe!'REPLY=${REPLY:t}'!oe!'[[ $REPLY == *local* ]] && REPLY=0 || REPLY=1'!^-@); source $config_file
+for config_file in $ZSH/(local|config|modules|lib)/*.zsh(Noe!'REPLY=${REPLY:t}'!oe!'[[ $REPLY == *local* ]] && REPLY=0 || REPLY=1'!^-@); source $config_file
